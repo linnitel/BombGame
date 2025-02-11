@@ -12,24 +12,29 @@ struct FinalView: View {
     
     var body: some View {
         ZStack {
-            
-             // фон
+            Color.gameBackground
+            Image(.topographicGray)
+                .resizable()
+                .frame(height: 900)
             
             VStack {
                 
                 Text("Конец игры")
-                    .font(.system(size: 30)) // Font
+                    .font(.custom("SF Pro Rounded", size: 30))
+                    .foregroundStyle(.appPrimary)
                     .padding(.top,50)
                 
-                Image("finalImage") // texture under image
+                Image("finalImage")
                     .resizable()
                     .frame(width: 249, height: 300)
+                    .opacity(0.85) //? texture under image
                     .padding(.top, 65)
                 
                 Text( finalViewVM.currentTask )
-                    .frame(width:329, height: 110) // height != figma :)
-                    .font(.system(size: 27))
+                    .frame(width:329, height: 110)
+                    .font(.system(size: 28))
                     .multilineTextAlignment(.center)
+                    .foregroundStyle(.appPrimary)
                     .padding(.horizontal, 22)
                     .padding(.top,47)
                      

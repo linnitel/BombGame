@@ -16,9 +16,10 @@ struct YellowButton: View {
         Button(action: action) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.yellow) // Color! 3C3A3A
+                    .foregroundStyle(.gameViewButton)
                 Text(label)
-                    .foregroundStyle(.gray) // Color! FFD25E
+                    .font(.custom("SF Pro Display", size: 20))
+                    .foregroundStyle(.appPrimary)
             }
             .frame(width: 330, height: 55)
             
