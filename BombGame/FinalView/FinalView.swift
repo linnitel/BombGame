@@ -28,7 +28,7 @@ struct FinalView: View {
                     .padding(.top, 65)
                 
                 Text( finalViewVM.currentTask )
-                    .frame(width:329, height: 96)
+                    .frame(width:329, height: 110) // height != figma :)
                     .font(.system(size: 27))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 22)
