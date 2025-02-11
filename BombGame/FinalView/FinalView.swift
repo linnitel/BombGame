@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FinalView: View {
-    
     @StateObject private var finalViewVM = FinalViewVM()
     
     var body: some View {
@@ -22,7 +21,7 @@ struct FinalView: View {
                     .font(.system(size: 30)) // Font
                     .padding(.top,50)
                 
-                Image("finalImage") // texture
+                Image("finalImage") // texture under image
                     .resizable()
                     .frame(width: 249, height: 300)
                     .padding(.top, 65)
