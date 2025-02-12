@@ -15,18 +15,19 @@ struct MainGameView: View {
 		NavigationStack {
 			VStack {
 				ZStack {
-					Color.mainBackground
-					Image("TopographicRootView")
-						.resizable()
-						.scaledToFit()
+					Group {
+						Color.mainBackground
+						Image("TopographicRootView")
+							.resizable()
+							.scaledToFill()
+					}
+					.ignoresSafeArea()
 					VStack {
 						Spacer()
 						Text("ИГРА ДЛЯ КОМПАНИИ")
-							.fontWeight(.bold)
-							.font(.system(size: 28))
+							.font(.system(size: 28, weight: .bold, design: .rounded))
 						Text("БОМБА")
-							.fontWeight(.bold)
-							.font(.system(size: 48))
+							.font(.system(size: 48, weight: .bold, design: .rounded))
 						Image("BombRootView")
 							.resizable()
 							.scaledToFit()
@@ -38,7 +39,7 @@ struct MainGameView: View {
 					}
 				}
 			}
-			.ignoresSafeArea()
+
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
 					Image("RulesIcon").onTapGesture {
@@ -67,7 +68,7 @@ struct ButtonView: View {
 						.foregroundStyle(.mainViewButton)
 						.shadow(radius: 5)
 					Text(label)
-						.fontWeight(.bold)
+						.font(.system(size: 20, weight: .semibold, design: .rounded))
 						.foregroundStyle(Color.primary)
 				}
 				.frame(width: 330, height: 55)
