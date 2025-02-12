@@ -16,7 +16,7 @@ struct FinalView: View {
                 Color.gameBackground
                 Image(.topographicGray)
                     .resizable()
-                    .frame(height: 900)
+                    .frame(height: 910)
             }
             .ignoresSafeArea()
             
