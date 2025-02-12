@@ -11,7 +11,7 @@ import SwiftUI
 struct BombGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainGameView()
         }
     }
 }
