@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct GameView: View {
+    @State private var isAnimating = true
+    @State private var animationAmount = 1.0
     @State private var isGameStarted = false
+    @State private var timeRemaining = 30
+    @State private var timer: Timer?
     
     var body: some View {
         ZStack {
@@ -16,7 +20,6 @@ struct GameView: View {
                 Color.gameBackground
                 Image(.topographicGray)
                     .resizable()
-                
             }
             .ignoresSafeArea()
             
@@ -33,18 +36,29 @@ struct GameView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
                 
+                Text(isGameStarted ? "Осталось: \(timeRemaining) сек" : "")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+                
                 Spacer()
                 
                 Image("BombGameView")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 350, height: 400)
+                    .frame(width: 250, height: 300)
+                    .scaleEffect(animationAmount)
+                    .animation(isAnimating ?
+                        .easeInOut(duration: 1)
+                        .repeatForever(autoreverses: true) : .none,
+                               value: animationAmount
+                    )
                 
                 Spacer()
                 
                 if !isGameStarted {
                     Button(action: {
-                        isGameStarted = true
+                        startGame()
                     }) {
                         Text("Запустить")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -56,18 +70,71 @@ struct GameView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
+                    
                 } else {
-                    Rectangle()
-                        .frame(width: 30, height: 40)
-                        .foregroundStyle(Color.gray.opacity(0))
+                    Button(action: {
+                        togglePause()
+                        
+                    }) {
+                        Text(isAnimating ? "Пауза" : "Продолжить")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(isAnimating ? .green : .gameViewButton)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
                 }
             }
-            
-            
         }
         
-        
     }
+    
+    private func startGame() {
+        isGameStarted = true
+        isAnimating = true
+        animationAmount = 1.5
+        timeRemaining = 10
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if timeRemaining > 0 {
+                timeRemaining -= 1
+            } else {
+                stopGame()
+            }
+        }
+    }
+    
+    private func stopGame() {
+        isAnimating = false
+        animationAmount = 1.0
+        timer?.invalidate()
+        timer = nil
+        print("Взрыв")
+    }
+    
+    private func togglePause() {
+        if isAnimating {
+            timer?.invalidate()
+            timer = nil
+            isAnimating = false
+        } else {
+            isAnimating = true
+            animationAmount = 1.5 
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                if timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else {
+                    stopGame()
+                }
+            }
+        }
+    }
+    
+    
 }
 
 struct GameView_Previews: PreviewProvider {
