@@ -11,50 +11,61 @@ struct GameView: View {
     @State private var isGameStarted = false
     
     var body: some View {
-        VStack {
-            Text("Игра")
-                .font(.custom("SF Pro Rounded", size: 30, relativeTo: .title))
-                .fontWeight(.bold)
-                .padding(.top, 20)
-            
-            Spacer()
-            
-            Text(isGameStarted ? "Назовите вид зимнего спорта" : "Нажмите “Запустить”\nчтобы начать игру")
-                .font(isGameStarted ? .custom("SF Pro Rounded", size: 28, relativeTo: .largeTitle) : .custom("SF Pro Rounded", size: 28, relativeTo: .headline))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
-            
-            Spacer()
-            
-            Image("BombGameView")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 300, height: 400)
-            
-            Spacer()
-            
-            if !isGameStarted {
-                Button(action: {
-                    isGameStarted = true
-                }) {
-                    Text("Запустить")
-                        .font(.custom("SF Pro Rounded", size: 20, relativeTo: .headline))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.gameViewButton)
-                        .cornerRadius(12)
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+        ZStack {
+            Group {
+                Color.gameBackground
+                Image(.topographicGray)
+                    .resizable()
+                
             }
+            .ignoresSafeArea()
+            
+            VStack {
+                Text("Игра")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .fontWeight(.bold)
+                    .padding(.top, 20)
+                
+                Spacer()
+                
+                Text(isGameStarted ? "Назовите вид зимнего спорта" : "Нажмите “Запустить”\nчтобы начать игру")
+                    .font(isGameStarted ? .system(size: 28, weight: .bold, design: .rounded) : .system(size: 28, weight: .regular, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+                
+                Spacer()
+                
+                Image("BombGameView")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 350, height: 400)
+                
+                Spacer()
+                
+                if !isGameStarted {
+                    Button(action: {
+                        isGameStarted = true
+                    }) {
+                        Text("Запустить")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(.gameViewButton)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                } else {
+                    Rectangle()
+                        .frame(width: 30, height: 40)
+                        .foregroundStyle(Color.gray.opacity(0))
+                }
+            }
+            
+            
         }
-        .background(
-            Image("background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-        )
+        
         
     }
 }
