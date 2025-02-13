@@ -10,9 +10,10 @@ import SwiftUI
 struct MainGameView: View {
 
 	@State private var showRules: Bool = false
+	@State private var path = NavigationPath()
 
     var body: some View {
-		NavigationStack {
+		NavigationStack(path: $path) {
 			VStack {
 				ZStack {
 					Group {
@@ -33,8 +34,12 @@ struct MainGameView: View {
 							.scaledToFit()
 							.frame(width: 300, height: 300)
 						Spacer()
-						ButtonView(action: {}, label: "Старт игры")
-						ButtonView(action: {}, label: "Категории")
+						ButtonView(action: {
+							path.append(Path.gameStart)
+						}, label: "Старт игры")
+						ButtonView(action: {
+							path.append(Path.categorySelection)
+						}, label: "Категории")
 						Spacer()
 					}
 				}
@@ -51,6 +56,14 @@ struct MainGameView: View {
 			.sheet(isPresented: $showRules) {
 				RulesView()
 					.presentationDetents([.fraction(0.8)])
+			}
+			.navigationDestination(for: Path.self) { value in
+				switch value {
+					case .gameStart:
+						GameView(path: $path)
+					case .categorySelection:
+						Text("Categories view")
+				}
 			}
 		}
 
@@ -74,6 +87,13 @@ struct ButtonView: View {
 				.frame(width: 330, height: 55)
 			}
 
+	}
+}
+
+extension MainGameView {
+	enum Path {
+		case gameStart
+		case categorySelection
 	}
 }
 
