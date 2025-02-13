@@ -13,7 +13,7 @@ class GameViewModel: ObservableObject {
     @Published var timeRemaining = 30
     @Published var timer: Timer?
     
-    func startGame() {
+	func startGame(navigate: @escaping () -> ()) {
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
@@ -23,20 +23,20 @@ class GameViewModel: ObservableObject {
             if timeRemaining > 0 {
                 timeRemaining -= 1
             } else {
-                stopGame()
+				stopGame(navigate: navigate)
             }
         }
     }
     
-    func stopGame() {
+	func stopGame(navigate: @escaping () -> ()) {
         isAnimating = false
         animationAmount = 1.0
         timer?.invalidate()
         timer = nil
-        print("Взрыв")
+		navigate()
     }
     
-    func togglePause() {
+    func togglePause(navigate: @escaping () -> ()) {
         if isAnimating {
             timer?.invalidate()
             timer = nil
@@ -49,7 +49,7 @@ class GameViewModel: ObservableObject {
                 if timeRemaining > 0 {
                     timeRemaining -= 1
                 } else {
-                    stopGame()
+					stopGame(navigate: navigate)
                 }
             }
         }

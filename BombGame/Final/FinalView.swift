@@ -9,7 +9,9 @@ import SwiftUI
 
 struct FinalView: View {
     @StateObject private var finalViewVM = FinalViewVM()
-    
+
+	@Binding var path: NavigationPath
+
     var body: some View {
         ZStack {
             Group {
@@ -54,5 +56,5 @@ struct FinalView: View {
 }
 
 #Preview {
-    FinalView()
+	FinalView(path: .constant(NavigationPath()))
 }
