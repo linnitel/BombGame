@@ -45,15 +45,16 @@ struct FinalView: View {
                 VStack(spacing: 16) {
                     YellowButton(action: {finalViewVM.uploadTask()}, label: "Другое задание")
 					YellowButton(action: {finalViewVM.newGame {
-						path = NavigationPath()
+						path.removeLast()
 					}}, label: "Начать заново")
                 }
                 .padding(.top,43)
                 .padding(.bottom, 50)
             }
         }
-        .onAppear( perform: finalViewVM.uploadTask ) 
-        
+        .onAppear(perform: finalViewVM.uploadTask)
+		.navigationBarHidden(true)
+
     }
 }
 
