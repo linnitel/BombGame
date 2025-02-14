@@ -8,16 +8,13 @@ import SwiftUI
 import AVFoundation
 
 class GameViewModel: ObservableObject {
-    private var backgroundMusicPlayer: AVAudioPlayer?
-    private var tickingSoundPlayer: AVAudioPlayer?
-    
     @Published var isAnimating = true
     @Published var animationAmount = 1.0
     @Published var isGameStarted = false
     @Published var timeRemaining = 30
     @Published var timer: Timer?
     
-	func startGame(navigate: @escaping () -> ()) {
+    func startGame(navigate: @escaping () -> ()) {
         AudioManager.shared.playSound(named: "taymerChasyi", volume: 0.6)
         isGameStarted = true
         isAnimating = true
@@ -28,19 +25,18 @@ class GameViewModel: ObservableObject {
             if timeRemaining > 0 {
                 timeRemaining -= 1
             } else {
-				stopGame(navigate: navigate)
+                stopGame(navigate: navigate)
             }
         }
     }
     
-	func stopGame(navigate: @escaping () -> ()) {
+    func stopGame(navigate: @escaping () -> ()) {
         isAnimating = false
         animationAmount = 1.0
         timer?.invalidate()
         timer = nil
-		navigate()
+        navigate()
         AudioManager.shared.stopAllSounds()
-        backgroundMusicPlayer?.stop()
     }
     
     func togglePause(navigate: @escaping () -> ()) {
@@ -58,7 +54,7 @@ class GameViewModel: ObservableObject {
                 if timeRemaining > 0 {
                     timeRemaining -= 1
                 } else {
-					stopGame(navigate: navigate)
+                    stopGame(navigate: navigate)
                 }
             }
         }
