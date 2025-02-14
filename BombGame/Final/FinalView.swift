@@ -37,10 +37,10 @@ struct FinalView: View {
                     .padding(.top,47)
                      
                 VStack(spacing: 16) {
-                    YellowButton(action: {finalViewVM.uploadTask()}, label: "Другое задание")
-					YellowButton(action: {finalViewVM.newGame {
+					ButtonView(action: {finalViewVM.uploadTask()}, label: "Другое задание", color: .gameViewButton)
+					ButtonView(action: {finalViewVM.newGame {
 						path.removeLast()
-					}}, label: "Начать заново")
+					}}, label: "Начать заново", color: .gameViewButton)
                 }
                 .padding(.top,43)
                 .padding(.bottom, 50)

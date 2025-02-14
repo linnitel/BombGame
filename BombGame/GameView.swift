@@ -51,37 +51,20 @@ struct GameView: View {
                 Spacer()
                 
                 if !gameViewModel.isGameStarted {
-                    Button(action: {
+					ButtonView(action: {
 						gameViewModel.startGame {
 							path.append(GamePath.finalScreen)
 						}
-                    }) {
-                        Text("Запустить")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.gameViewButton)
-                            .cornerRadius(12)
-                    }
+					}, label: "Запустить", color: .gameViewButton)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                     
                 } else {
-                    Button(action: {
+					ButtonView(action: {
 						gameViewModel.togglePause {
 							path.append(GamePath.finalScreen)
 						}
-
-                    }) {
-                        Text(gameViewModel.isAnimating ? "Пауза" : "Продолжить")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(gameViewModel.isAnimating ? .green : .gameViewButton)
-                            .cornerRadius(12)
-                    }
+					}, label: gameViewModel.isAnimating ? "Пауза" : "Продолжить", color: gameViewModel.isAnimating ? .green : .gameViewButton)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                 }

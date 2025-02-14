@@ -79,7 +79,7 @@ struct CategoryView: View {
                 Spacer()
                 ButtonView(action: {
 					path.append(CategoryPath.gameScreen)
-                }, label: "Начать игру")
+				}, label: "Начать игру", color: .mainViewButton)
             }
         }
         .toolbar {

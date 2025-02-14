@@ -27,8 +27,10 @@ struct MainGameView: View {
 						Spacer()
 						Text("ИГРА ДЛЯ КОМПАНИИ")
 							.font(.system(size: 28, weight: .bold, design: .rounded))
+							.foregroundColor(Color.appPrimary)
 						Text("БОМБА")
 							.font(.system(size: 48, weight: .bold, design: .rounded))
+							.foregroundColor(Color.appPrimary)
 						Image("BombRootView")
 							.resizable()
 							.scaledToFit()
@@ -37,10 +39,10 @@ struct MainGameView: View {
 						Spacer()
 						ButtonView(action: {
 							path.append(Path.gameStart)
-						}, label: "Старт игры")
+						}, label: "Старт игры", color: .mainViewButton)
 						ButtonView(action: {
 							path.append(Path.categorySelection)
-						}, label: "Категории")
+						}, label: "Категории", color: .mainViewButton)
 						.padding(.bottom, 20)
 						Spacer()
 					}
@@ -73,26 +75,26 @@ struct MainGameView: View {
     }
 }
 
-struct ButtonView: View {
-	let action: () -> Void
-	let label: String
-
-	var body: some View {
-			Button(action: action) {
-				ZStack {
-					RoundedRectangle(cornerRadius: 10)
-						.foregroundStyle(.mainViewButton)
-						.shadow(radius: 5)
-					Text(label)
-						.font(.system(size: 20, weight: .semibold, design: .rounded))
-						.foregroundStyle(Color.primary)
-				}
-				.frame(height: 55)
-				.padding(.horizontal, 20)
-			}
-
-	}
-}
+//struct ButtonView: View {
+//	let action: () -> Void
+//	let label: String
+//
+//	var body: some View {
+//			Button(action: action) {
+//				ZStack {
+//					RoundedRectangle(cornerRadius: 10)
+//						.foregroundStyle(.mainViewButton)
+//						.shadow(radius: 5)
+//					Text(label)
+//						.font(.system(size: 20, weight: .semibold, design: .rounded))
+//						.foregroundColor(Color.appPrimary)
+//				}
+//				.frame(height: 55)
+//				.padding(.horizontal, 20)
+//			}
+//
+//	}
+//}
 
 extension MainGameView {
 	enum Path {
