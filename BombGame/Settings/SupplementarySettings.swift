@@ -10,8 +10,6 @@ import SwiftUI
 struct SupplementarySettings: View {
     
     let setName: String
-    @State var statusOnView = true
-    
     @Binding var value: Bool
     
     var body: some View {
@@ -27,11 +25,8 @@ struct SupplementarySettings: View {
                 
                 Spacer()
                 
-                Toggle( "", isOn: $statusOnView)
+                Toggle( "", isOn: $value)
                     .frame(width: 50)
-                    .onChange(of: statusOnView) { oldValue, newValue in
-                        value = newValue
-                    }
             }
             .padding(.horizontal,20)
         }

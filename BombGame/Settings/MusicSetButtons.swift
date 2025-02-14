@@ -27,7 +27,6 @@ struct MusicSetButtons: View {
                     
                 Spacer()
                 
-                
                 Picker("music", selection: $sound) {
                     ForEach(sounds, id:\.self) { sound in
                         Text(sound)
@@ -36,7 +35,7 @@ struct MusicSetButtons: View {
                             .opacity(0.5)
                     }
                 }
-                .frame(width: 120)
+                .frame(width: 110)
                 .pickerStyle(.wheel)
                 
             }

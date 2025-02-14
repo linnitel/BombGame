@@ -77,7 +77,7 @@ struct SettingsView: View {
                         .foregroundStyle(.categoryCellBg)
                     
                     VStack(spacing: 15) {
-                        SupplementarySettings(setName: "Вибрация", value: $settingsVM.vibration)
+                        SupplementarySettings(setName: "Вибрация",value: $settingsVM.vibration)
                         SupplementarySettings(setName: "Игра с заданиями", value: $settingsVM.gameForTasks)
                     }
                 }
@@ -88,7 +88,6 @@ struct SettingsView: View {
                 .frame(width: 342, height: 151)
             }
         }
-        
     }
 }
 
