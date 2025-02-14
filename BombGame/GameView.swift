@@ -9,9 +9,9 @@ import SwiftUI
 
 struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
-
-	@Binding var path: NavigationPath
-
+    
+    @Binding var path: NavigationPath
+    
     var body: some View {
         ZStack {
             Group {
@@ -56,9 +56,9 @@ struct GameView: View {
                 
                 if !gameViewModel.isGameStarted {
                     Button(action: {
-						gameViewModel.startGame {
-							path.append(GamePath.finalScreen)
-						}
+                        gameViewModel.startGame {
+                            path.append(GamePath.finalScreen)
+                        }
                     }) {
                         Text("Запустить")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -73,10 +73,9 @@ struct GameView: View {
                     
                 } else {
                     Button(action: {
-						gameViewModel.togglePause {
-							path.append(GamePath.finalScreen)
-						}
-
+                        gameViewModel.togglePause {
+                            path.append(GamePath.finalScreen)
+                        }
                     }) {
                         Text(gameViewModel.isAnimating ? "Пауза" : "Продолжить")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -90,23 +89,23 @@ struct GameView: View {
                     .padding(.bottom, 20)
                 }
             }
-			.navigationDestination(for: GamePath.self) { value in
-				switch value {
-					case .finalScreen:
-						FinalView(path: $path)
-				}
-			}
+            .navigationDestination(for: GamePath.self) { value in
+                switch value {
+                case .finalScreen:
+                    FinalView(path: $path)
+                }
+            }
             .onAppear {
-                gameViewModel.playBackgroundMusic()
+                AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
             }
         }
     }
 }
 
 extension GameView {
-	enum GamePath {
-		case finalScreen
-	}
+    enum GamePath {
+        case finalScreen
+    }
 }
 
 struct GameView_Previews: PreviewProvider {
