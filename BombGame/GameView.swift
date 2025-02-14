@@ -78,24 +78,9 @@ struct GameView: View {
             .onAppear {
                 AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
             }
-			.toolbar {
-				ToolbarItem(placement: .topBarLeading) {
-					Image(systemName: "chevron.left")
-						.onTapGesture {
-							path.removeLast()
-						}
-						.font(.system(.body, design: .rounded))
-						.fontWeight(.bold)
-						.foregroundColor(Color.appPrimary)
-				}
-				ToolbarItem(placement: .principal) {
-					Text("Игра")
-						.font(.system(.title, design: .rounded))
-						.fontWeight(.bold)
-						.foregroundColor(Color.appPrimary)
-				}
-			}
-			.navigationBarBackButtonHidden(true)
+			.customToolbar(title: "Игра", backButtonAction: {
+				path.removeLast()
+			}, isShowingHint: false, hintAction: nil)
         }
 
     }

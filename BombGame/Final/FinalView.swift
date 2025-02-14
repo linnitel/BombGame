@@ -48,28 +48,16 @@ struct FinalView: View {
         }
         .onAppear(perform: finalViewVM.uploadTask)
         .onAppear {
-            AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
-        }
-		.toolbar {
-			ToolbarItem(placement: .topBarLeading) {
-				Image(systemName: "chevron.left")
-					.onTapGesture {
-						path.removeLast()
-					}
-					.font(.system(.body, design: .rounded))
-					.fontWeight(.bold)
-					.foregroundColor(Color.appPrimary)
-			}
-			ToolbarItem(placement: .principal) {
-				Text("Конец игры")
-					.font(.system(.title, design: .rounded))
-					.fontWeight(.bold)
-					.foregroundColor(Color.appPrimary)
-			}
+			AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
 		}
-		.navigationBarBackButtonHidden(true)
+		.customToolbar(title: "Конец игры",
+					   backButtonAction: {
+			path.removeLast()
+		},
+					   isShowingHint: false,
+					   hintAction: nil)
 
-    }
+	}
 }
 
 #Preview {
