@@ -21,9 +21,9 @@ class FinalViewVM: ObservableObject {
         print("uploadNewTask")
     }
     
-    func newGame() {
+	func newGame(navigation: @escaping () -> ()) {
         // go to new game View
-        print("new game view")
+        navigation()
     }
     
     

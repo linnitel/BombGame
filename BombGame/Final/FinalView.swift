@@ -9,7 +9,9 @@ import SwiftUI
 
 struct FinalView: View {
     @StateObject private var finalViewVM = FinalViewVM()
-    
+
+	@Binding var path: NavigationPath
+
     var body: some View {
         ZStack {
             Group {
@@ -42,17 +44,20 @@ struct FinalView: View {
                      
                 VStack(spacing: 16) {
                     YellowButton(action: {finalViewVM.uploadTask()}, label: "Другое задание")
-                    YellowButton(action: {finalViewVM.newGame()}, label: "Начать заново")
+					YellowButton(action: {finalViewVM.newGame {
+						path.removeLast()
+					}}, label: "Начать заново")
                 }
                 .padding(.top,43)
                 .padding(.bottom, 50)
             }
         }
-        .onAppear( perform: finalViewVM.uploadTask ) 
-        
+        .onAppear(perform: finalViewVM.uploadTask)
+		.navigationBarHidden(true)
+
     }
 }
 
 #Preview {
-    FinalView()
+	FinalView(path: .constant(NavigationPath()))
 }

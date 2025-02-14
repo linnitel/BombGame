@@ -9,7 +9,9 @@ import SwiftUI
 
 struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
-    
+
+	@Binding var path: NavigationPath
+
     var body: some View {
         ZStack {
             Group {
@@ -54,7 +56,9 @@ struct GameView: View {
                 
                 if !gameViewModel.isGameStarted {
                     Button(action: {
-                        gameViewModel.startGame()
+						gameViewModel.startGame {
+							path.append(GamePath.finalScreen)
+						}
                     }) {
                         Text("Запустить")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -69,8 +73,10 @@ struct GameView: View {
                     
                 } else {
                     Button(action: {
-                        gameViewModel.togglePause()
-                        
+						gameViewModel.togglePause {
+							path.append(GamePath.finalScreen)
+						}
+
                     }) {
                         Text(gameViewModel.isAnimating ? "Пауза" : "Продолжить")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -84,15 +90,24 @@ struct GameView: View {
                     .padding(.bottom, 20)
                 }
             }
+			.navigationDestination(for: GamePath.self) { value in
+				switch value {
+					case .finalScreen:
+						FinalView(path: $path)
+				}
+			}
         }
-        
     }
-    
-    
+}
+
+extension GameView {
+	enum GamePath {
+		case finalScreen
+	}
 }
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+		GameView(path: .constant(NavigationPath()))
     }
 }
