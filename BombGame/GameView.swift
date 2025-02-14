@@ -97,7 +97,7 @@ struct GameView: View {
 				}
 			}
             .onAppear {
-                gameViewModel.playBackgroundMusic()
+                AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
             }
         }
     }

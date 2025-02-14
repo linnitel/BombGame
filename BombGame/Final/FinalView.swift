@@ -54,6 +54,9 @@ struct FinalView: View {
         }
         .onAppear(perform: finalViewVM.uploadTask)
 		.navigationBarHidden(true)
+        .onAppear {
+            AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
+        }
 
     }
 }

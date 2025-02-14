@@ -18,11 +18,11 @@ class GameViewModel: ObservableObject {
     @Published var timer: Timer?
     
 	func startGame(navigate: @escaping () -> ()) {
-        playTickingSound()
+        AudioManager.shared.playSound(named: "taymerChasyi", volume: 0.6)
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
-        timeRemaining = 10
+        timeRemaining = 30
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
             if timeRemaining > 0 {
@@ -39,7 +39,7 @@ class GameViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
 		navigate()
-        stopSounds()
+        AudioManager.shared.stopAllSounds()
         backgroundMusicPlayer?.stop()
     }
     
@@ -48,11 +48,11 @@ class GameViewModel: ObservableObject {
             timer?.invalidate()
             timer = nil
             isAnimating = false
-            stopSounds()
+            AudioManager.shared.stopSound(named: "taymerChasyi")
         } else {
             isAnimating = true
             animationAmount = 1.5
-            playTickingSound()
+            AudioManager.shared.playSound(named: "taymerChasyi", volume: 0.8)
             
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
                 if timeRemaining > 0 {
@@ -62,47 +62,6 @@ class GameViewModel: ObservableObject {
                 }
             }
         }
-    }
-    
-    func playBackgroundMusic() {
-        guard let url = Bundle.main.url(forResource: "giggleAllDay", withExtension: "mp3") else {
-            print("Файл giggleAllDay.mp3 не найден")
-            return
-        }
-        
-        DispatchQueue.global(qos: .background).async { [self] in
-            do {
-                backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
-                backgroundMusicPlayer?.numberOfLoops = -1
-                backgroundMusicPlayer?.volume = 0.4
-                backgroundMusicPlayer?.play()
-            } catch {
-                print("Ошибка воспроизведения фоновой музыки: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    func playTickingSound() {
-        guard let url = Bundle.main.url(forResource: "taymerChasyi", withExtension: "mp3") else {
-            print("Файл bombTimer.m4r не найден")
-            return
-        }
-        
-        DispatchQueue.main.async { [self] in
-            do {
-                tickingSoundPlayer = try AVAudioPlayer(contentsOf: url)
-                tickingSoundPlayer?.numberOfLoops = -1
-                tickingSoundPlayer?.volume = 0.8
-                tickingSoundPlayer?.play()
-            } catch {
-                print("Ошибка воспроизведения тикающего звука: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    private func stopSounds() {
-        
-        tickingSoundPlayer?.stop()
     }
     
 }
