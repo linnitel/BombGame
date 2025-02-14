@@ -52,6 +52,7 @@ class GameViewModel: ObservableObject {
         } else {
             isAnimating = true
             animationAmount = 1.5
+            playTickingSound()
             
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
                 if timeRemaining > 0 {
