@@ -23,12 +23,6 @@ struct FinalView: View {
             .ignoresSafeArea()
             
             VStack {
-                
-                Text("Конец игры")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .foregroundStyle(.appPrimary)
-                    .padding(.top,50)
-                
                 Image(.finalExplosionView)
                     .resizable()
                     .frame(width: 249, height: 300)
@@ -53,7 +47,24 @@ struct FinalView: View {
             }
         }
         .onAppear(perform: finalViewVM.uploadTask)
-		.navigationBarHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .topBarLeading) {
+				Image(systemName: "chevron.left")
+					.onTapGesture {
+						path.removeLast()
+					}
+					.font(.system(.body, design: .rounded))
+					.fontWeight(.bold)
+					.foregroundColor(Color.appPrimary)
+			}
+			ToolbarItem(placement: .principal) {
+				Text("Конец игры")
+					.font(.system(.title, design: .rounded))
+					.fontWeight(.bold)
+					.foregroundColor(Color.appPrimary)
+			}
+		}
+		.navigationBarBackButtonHidden(true)
 
     }
 }

@@ -32,7 +32,8 @@ struct MainGameView: View {
 						Image("BombRootView")
 							.resizable()
 							.scaledToFit()
-							.frame(width: 300, height: 300)
+							.frame(maxWidth: 300)
+
 						Spacer()
 						ButtonView(action: {
 							path.append(Path.gameStart)
@@ -40,8 +41,10 @@ struct MainGameView: View {
 						ButtonView(action: {
 							path.append(Path.categorySelection)
 						}, label: "Категории")
+						.padding(.bottom, 20)
 						Spacer()
 					}
+					.padding(.vertical, 40)
 				}
 			}
 
@@ -62,7 +65,7 @@ struct MainGameView: View {
 					case .gameStart:
 						GameView(path: $path)
 					case .categorySelection:
-						Text("Categories view")
+						CategoryView(path: $path)
 				}
 			}
 		}
@@ -84,7 +87,8 @@ struct ButtonView: View {
 						.font(.system(size: 20, weight: .semibold, design: .rounded))
 						.foregroundStyle(Color.primary)
 				}
-				.frame(width: 330, height: 55)
+				.frame(height: 55)
+				.padding(.horizontal, 20)
 			}
 
 	}

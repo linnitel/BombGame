@@ -43,7 +43,9 @@ struct CategoryView: View {
     
     @StateObject private var viewModel = CategoryViewModel()
     @State private var showHint = false
-    
+
+	@Binding var path: NavigationPath
+
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -76,14 +78,16 @@ struct CategoryView: View {
             VStack {
                 Spacer()
                 ButtonView(action: {
-                    //
+					path.append(CategoryPath.gameScreen)
                 }, label: "Начать игру")
             }
         }
-
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "chevron.left")
+					.onTapGesture {
+						path.removeLast()
+					}
                     .font(.system(.body, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color.appPrimary)
@@ -101,13 +105,17 @@ struct CategoryView: View {
                 .padding(.trailing)
             }
         }
-
+		.navigationBarBackButtonHidden(true)
+		.navigationDestination(for: CategoryPath.self) { value in
+			switch value {
+				case .gameScreen:
+					GameView(path: $path)
+			}
+		}
         .sheet(isPresented: $showHint) {
             HintView()
                 .presentationDetents([.fraction(0.8)])
         }
-
-        .navigationTitle("Категории")
         .navigationBarTitleDisplayMode(.inline)
 
     }
@@ -216,8 +224,14 @@ struct HintView: View {
     }
 }
 
+extension CategoryView {
+	enum CategoryPath {
+		case gameScreen
+	}
+}
+
 #Preview {
     NavigationStack{
-        CategoryView()
+		CategoryView(path: .constant(NavigationPath()))
     }
 }

@@ -22,10 +22,6 @@ struct GameView: View {
             .ignoresSafeArea()
             
             VStack {
-                Text("Игра")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .fontWeight(.bold)
-                    .padding(.top, 20)
                 
                 Spacer()
                 
@@ -90,6 +86,7 @@ struct GameView: View {
                     .padding(.bottom, 20)
                 }
             }
+
 			.navigationDestination(for: GamePath.self) { value in
 				switch value {
 					case .finalScreen:
@@ -99,7 +96,26 @@ struct GameView: View {
             .onAppear {
                 gameViewModel.playBackgroundMusic()
             }
+			.toolbar {
+				ToolbarItem(placement: .topBarLeading) {
+					Image(systemName: "chevron.left")
+						.onTapGesture {
+							path.removeLast()
+						}
+						.font(.system(.body, design: .rounded))
+						.fontWeight(.bold)
+						.foregroundColor(Color.appPrimary)
+				}
+				ToolbarItem(placement: .principal) {
+					Text("Игра")
+						.font(.system(.title, design: .rounded))
+						.fontWeight(.bold)
+						.foregroundColor(Color.appPrimary)
+				}
+			}
+			.navigationBarBackButtonHidden(true)
         }
+
     }
 }
 
