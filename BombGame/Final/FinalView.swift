@@ -23,12 +23,6 @@ struct FinalView: View {
             .ignoresSafeArea()
             
             VStack {
-                
-                Text("Конец игры")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .foregroundStyle(.appPrimary)
-                    .padding(.top,50)
-                
                 Image(.finalExplosionView)
                     .resizable()
                     .frame(width: 249, height: 300)
@@ -43,20 +37,37 @@ struct FinalView: View {
                     .padding(.top,47)
                      
                 VStack(spacing: 16) {
-                    YellowButton(action: {finalViewVM.uploadTask()}, label: "Другое задание")
-					YellowButton(action: {finalViewVM.newGame {
+					ButtonView(action: {finalViewVM.uploadTask()}, label: "Другое задание", color: .gameViewButton)
+					ButtonView(action: {finalViewVM.newGame {
 						path.removeLast()
-					}}, label: "Начать заново")
+					}}, label: "Начать заново", color: .gameViewButton)
                 }
                 .padding(.top,43)
                 .padding(.bottom, 50)
             }
         }
         .onAppear(perform: finalViewVM.uploadTask)
-		.navigationBarHidden(true)
         .onAppear {
             AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
         }
+		.toolbar {
+			ToolbarItem(placement: .topBarLeading) {
+				Image(systemName: "chevron.left")
+					.onTapGesture {
+						path.removeLast()
+					}
+					.font(.system(.body, design: .rounded))
+					.fontWeight(.bold)
+					.foregroundColor(Color.appPrimary)
+			}
+			ToolbarItem(placement: .principal) {
+				Text("Конец игры")
+					.font(.system(.title, design: .rounded))
+					.fontWeight(.bold)
+					.foregroundColor(Color.appPrimary)
+			}
+		}
+		.navigationBarBackButtonHidden(true)
 
     }
 }
