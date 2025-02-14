@@ -47,6 +47,9 @@ struct FinalView: View {
             }
         }
         .onAppear(perform: finalViewVM.uploadTask)
+        .onAppear {
+            AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
+        }
 		.toolbar {
 			ToolbarItem(placement: .topBarLeading) {
 				Image(systemName: "chevron.left")

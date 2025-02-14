@@ -9,9 +9,9 @@ import SwiftUI
 
 struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
-
-	@Binding var path: NavigationPath
-
+    
+    @Binding var path: NavigationPath
+    
     var body: some View {
         ZStack {
             Group {
@@ -69,15 +69,14 @@ struct GameView: View {
                     .padding(.bottom, 20)
                 }
             }
-
-			.navigationDestination(for: GamePath.self) { value in
-				switch value {
-					case .finalScreen:
-						FinalView(path: $path)
-				}
-			}
+            .navigationDestination(for: GamePath.self) { value in
+                switch value {
+                case .finalScreen:
+                    FinalView(path: $path)
+                }
+            }
             .onAppear {
-                gameViewModel.playBackgroundMusic()
+                AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
             }
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) {
@@ -103,9 +102,9 @@ struct GameView: View {
 }
 
 extension GameView {
-	enum GamePath {
-		case finalScreen
-	}
+    enum GamePath {
+        case finalScreen
+    }
 }
 
 struct GameView_Previews: PreviewProvider {
