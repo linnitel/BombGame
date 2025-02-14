@@ -107,7 +107,7 @@ struct CategoryView: View {
                 .presentationDetents([.fraction(0.8)])
         }
 
-        .navigationTitle("Каьтегории")
+        .navigationTitle("Категории")
         .navigationBarTitleDisplayMode(.inline)
 
     }
