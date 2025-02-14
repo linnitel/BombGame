@@ -96,6 +96,9 @@ struct GameView: View {
 						FinalView(path: $path)
 				}
 			}
+            .onAppear {
+                gameViewModel.playBackgroundMusic()
+            }
         }
     }
 }

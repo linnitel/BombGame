@@ -66,7 +66,7 @@ struct MainGameView: View {
 				}
 			}
 		}
-
+   
     }
 }
 
