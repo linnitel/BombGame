@@ -25,8 +25,9 @@ struct SupplementarySettings: View {
                 
                 Spacer()
                 
-                Toggle( "", isOn: $value)
+                Toggle("", isOn: $value)
                     .frame(width: 50)
+                    .tint(.categorySheetBg)
             }
             .padding(.horizontal,20)
         }
