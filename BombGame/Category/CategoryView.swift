@@ -82,30 +82,11 @@ struct CategoryView: View {
 				}, label: "Начать игру", color: .mainViewButton)
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Image(systemName: "chevron.left")
-					.onTapGesture {
-						path.removeLast()
-					}
-                    .font(.system(.body, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.appPrimary)
-            }
-            ToolbarItem(placement: .principal) {
-                Text("Категории")
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.appPrimary)
-               }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Image("HelpIcon").onTapGesture {
-                    showHint = true
-                }
-                .padding(.trailing)
-            }
-        }
-		.navigationBarBackButtonHidden(true)
+		.customToolbar(title: "Категории", backButtonAction: {
+			path.removeLast()
+		}, isShowingHint: true, hintAction: {
+			showHint = true
+		}, hintImage: ("HelpIcon"))
 		.navigationDestination(for: CategoryPath.self) { value in
 			switch value {
 				case .gameScreen:
