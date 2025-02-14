@@ -23,13 +23,9 @@ struct RulesView: View {
 					Text("Правила Игры")
 						.font(.system(size: 32, weight: .bold, design: .rounded))
 					VStack(alignment: .leading) {
-						RuleItemView(label: "Все игроки становятся в круг.", number: "1")
-						RuleItemView(label: "Первый игрок берет телефон и нажимает кнопку:", number: "2", isWithButton: true, buttonTitle: "Старт игры")
-						RuleItemView(label: "На экране появляется вопрос “Назовите Фрукт”.", number: "3")
-						RuleItemView(label: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку.", number: "4")
-						RuleItemView(label: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба.", number: "5")
-						RuleItemView(label: "Проигравшим считается тот, в чьих руках взорвалась бомба.", number: "6")
-						RuleItemView(label: "Если выбран режим игры “С Заданиями”, то проигравший выполняет задание.", number: "7")
+						ForEach(Rules.rules) { rule in
+							RuleItemView(label: rule.text, number: rule.number, isWithButton: rule.isWithButton, buttonTitle: rule.buttonLabel)
+						}
 					}
 				}
 				.frame(width: 320)
