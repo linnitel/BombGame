@@ -51,11 +51,11 @@ struct CategoryCellView: View {
         .clipShape(
             RoundedRectangle(cornerRadius: 20)
         )
+        .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 6)
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(.black, lineWidth: 1)
         )
-        .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 6)
     }
 }
 

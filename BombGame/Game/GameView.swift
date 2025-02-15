@@ -9,11 +9,12 @@ import SwiftUI
 
 struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
-    
     @Binding var path: NavigationPath
+    @State private var question: String = ""
     
     var body: some View {
         ZStack {
+            // Фон
             Group {
                 Color.gameBackground
                 Image(.topographicGray)
@@ -22,11 +23,10 @@ struct GameView: View {
             .ignoresSafeArea()
             
             VStack {
-                
                 Spacer()
                 
-                Text(gameViewModel.isGameStarted ? "Назовите вид зимнего спорта" : "Нажмите “Запустить”\nчтобы начать игру")
-                    .font(gameViewModel.isGameStarted ? .system(size: 28, weight: .bold, design: .rounded) : .system(size: 28, weight: .regular, design: .rounded))
+                Text(gameViewModel.isGameStarted ? question : "Нажмите “Запустить”\nчтобы начать игру")
+                    .font(.system(size: 28, weight: gameViewModel.isGameStarted ? .bold : .regular, design: .rounded))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
                 
@@ -51,20 +51,20 @@ struct GameView: View {
                 Spacer()
                 
                 if !gameViewModel.isGameStarted {
-					ButtonView(action: {
-						gameViewModel.startGame {
-							path.append(GamePath.finalScreen)
-						}
-					}, label: "Запустить", color: .gameViewButton)
+                    ButtonView(action: {
+                        gameViewModel.startGame {
+                            path.append(GamePath.finalScreen)
+                        }
+                    }, label: "Запустить", color: .gameViewButton)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                     
                 } else {
-					ButtonView(action: {
-						gameViewModel.togglePause {
-							path.append(GamePath.finalScreen)
-						}
-					}, label: gameViewModel.isAnimating ? "Пауза" : "Продолжить", color: gameViewModel.isAnimating ? .green : .gameViewButton)
+                    ButtonView(
+                        action: { gameViewModel.togglePause { path.append(GamePath.finalScreen) } },
+                        label: gameViewModel.isAnimating ? "Пауза" : "Продолжить",
+                        color: gameViewModel.isAnimating ? .green : .gameViewButton
+                    )
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                 }
@@ -77,12 +77,16 @@ struct GameView: View {
             }
             .onAppear {
                 AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
+                question = gameViewModel.randomQuestion()
             }
-			.customToolbar(title: "Игра", backButtonAction: {
-				path.removeLast()
-			}, isShowingHint: false, hintAction: nil)
+            .onDisappear()
+            .customToolbar(
+                title: "Игра",
+                backButtonAction: { path.removeLast() },
+                isShowingHint: false,
+                hintAction: nil
+            )
         }
-
     }
 }
 
