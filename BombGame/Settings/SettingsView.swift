@@ -11,6 +11,7 @@ struct SettingsView: View {
     
     @StateObject private var settingsVM = SettingsVM()
     @Binding var path: NavigationPath
+    let player = AudioManager.shared
     
     var body: some View {
         
@@ -96,6 +97,7 @@ struct SettingsView: View {
         .navigationBarBackButtonHidden(true)
         .customToolbar(title: "Настройки",
                        backButtonAction: {
+            player.stopAllSounds()
             path.removeLast()
         },
                        isShowingHint: false,

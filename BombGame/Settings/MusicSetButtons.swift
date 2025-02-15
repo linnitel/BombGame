@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MusicSetButtons: View {
 
+    let player = AudioManager.shared
     @StateObject var settingsVM = SettingsVM()
     @Binding var sound: String
     
@@ -38,6 +39,16 @@ struct MusicSetButtons: View {
                     }
                 }
                 .onChange(of: sound) { newValue in
+                    
+                    if SettingsVM().vibration {
+                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                            impactHeavy.impactOccurred()
+                        print("vibro music")
+                    }
+                    
+                    player.stopAllSounds()
+                    player.playSound(named: sound, volume: 0.5, loops: 1)
+                    
                     switch musicVariant {
                     case .background:
                         settingsVM.setBackgroundMusic(music: sound)
