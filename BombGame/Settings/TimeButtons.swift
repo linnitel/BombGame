@@ -18,6 +18,11 @@ struct TimeButtons: View {
     var body: some View {
         HStack(spacing: 44) {
             Button {
+                if SettingsVM().vibration {
+                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                        impactHeavy.impactOccurred()
+                    print("vibro time")
+                }
                 funcOne()
             } label: {
                 ZStack {
@@ -31,6 +36,12 @@ struct TimeButtons: View {
             }
             
             Button{
+                if SettingsVM().vibration {
+                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                        impactHeavy.impactOccurred()
+                    print("vibro time")
+                }
+                
                 funcTwo()
             } label: {
                 ZStack {
