@@ -18,7 +18,7 @@ struct ButtonView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
 					.foregroundStyle(color)
-					.shadow(radius: 5)
+                    .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 6)
                 Text(label)
                     .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundStyle(.appPrimary)

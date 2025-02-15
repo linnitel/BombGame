@@ -12,6 +12,7 @@ struct BombGameApp: App {
     var body: some Scene {
         WindowGroup {
             MainGameView()
+                .preferredColorScheme(.light)
         }
     }
 }
