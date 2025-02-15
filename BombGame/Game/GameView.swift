@@ -61,7 +61,9 @@ struct GameView: View {
                     
                 } else {
                     ButtonView(
-                        action: { gameViewModel.togglePause { path.append(GamePath.finalScreen) } },
+						action: { gameViewModel.togglePause {
+							path.append(GamePath.finalScreen)
+						} },
                         label: gameViewModel.isAnimating ? "Пауза" : "Продолжить",
                         color: gameViewModel.isAnimating ? .green : .gameViewButton
                     )
@@ -82,7 +84,11 @@ struct GameView: View {
             .onDisappear()
             .customToolbar(
                 title: "Игра",
-                backButtonAction: { path.removeLast() },
+				backButtonAction: {
+					gameViewModel.stopGame {
+						path.removeLast()
+					}
+				},
                 isShowingHint: false,
                 hintAction: nil
             )
