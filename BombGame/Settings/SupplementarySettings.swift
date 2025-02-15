@@ -26,6 +26,13 @@ struct SupplementarySettings: View {
                 Spacer()
                 
                 Toggle("", isOn: $value)
+                    .onChange(of: value) {newValue in
+                        if SettingsVM().vibration {
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                impactHeavy.impactOccurred()
+                            print("vibro toggle")
+                        }
+                    }
                     .frame(width: 50)
                     .tint(.categorySheetBg)
             }
