@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftUICore
 
 struct RuleModel: Identifiable {
 	let id: UUID = UUID()
-	let text: String
+	let text: LocalizedStringKey
 	let number: String
 	let isWithButton: Bool
 	let buttonLabel: String?
@@ -23,6 +24,6 @@ struct Rules {
 		RuleModel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку.", number: "4", isWithButton: false, buttonLabel: nil),
 		RuleModel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба.", number: "5", isWithButton: false, buttonLabel: nil),
 		RuleModel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба.", number: "6", isWithButton: false, buttonLabel: nil),
-		RuleModel(text: "Если выбран режим игры “С Заданиями”, то проигравший выполняет задание.", number: "7", isWithButton: false, buttonLabel: nil)
+		RuleModel(text: LocalizedStringKey("Если выбран режим игры [“С Заданиями”](https), **то проигравший выполняет задание.**"), number: "7", isWithButton: false, buttonLabel: nil)
 	]
 }

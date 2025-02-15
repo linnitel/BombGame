@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct RulesView: View {
-    var body: some View {
+	var body: some View {
 		ZStack {
 			Group {
 				Color.mainSheetBg
 				Image("TopographicYellow")
 					.resizable()
-					.scaledToFill()
+					.clipped()
 			}
 			.ignoresSafeArea()
+			ScrollView {
 				VStack {
 					RoundedRectangle(cornerRadius: 15)
 						.frame(width: 68, height: 3)
@@ -28,16 +29,17 @@ struct RulesView: View {
 						}
 					}
 				}
-				.frame(width: 320)
 				.multilineTextAlignment(.leading)
 				.lineLimit(nil)
+				.padding()
+			}
 		}
 
-    }
+	}
 }
 
 struct RuleItemView: View {
-	let label : String
+	let label : LocalizedStringKey
 	let number: String
 	var isWithButton: Bool = false
 	var buttonTitle: String? = nil
@@ -48,8 +50,10 @@ struct RuleItemView: View {
 				CircleView(number: number)
 					.frame(width: 29, height: 29)
 					.shadow(radius: 4, x: 0, y: 4)
+					.padding(.trailing)
 				Text(label)
 					.font(.system(size: 18, weight: .medium, design: .rounded))
+					.tint(.purple)
 			}
 			if isWithButton {
 					ZStack {
@@ -59,6 +63,7 @@ struct RuleItemView: View {
 						Text(buttonTitle ?? "")
 							.foregroundStyle(Color.primary)
 							.font(.system(size: 12, weight: .bold, design: .rounded))
+
 					}
 					.frame(width: 167, height: 28)
 			}
