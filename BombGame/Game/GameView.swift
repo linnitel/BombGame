@@ -6,8 +6,26 @@
 //
 
 import SwiftUI
+import SwiftUIPausableAnimation
 
 struct GameView: View {
+    @State private var isPaused = false
+    @State private var animationAmount: CGFloat = 1.0
+    
+    private let duration: TimeInterval = 1.0
+    private let minScale: CGFloat = 1.0
+    private let maxScale: CGFloat = 1.4
+    
+    private var remainingDuration: RemainingDurationProvider<CGFloat> {
+        { _ in
+            return CGFloat(duration) // Всегда возвращаем фиксированное значение
+        }
+    }
+    
+    private let animation: AnimationWithDurationProvider = { duration in
+            .easeInOut(duration: duration)
+    }
+    
     @StateObject private var gameViewModel = GameViewModel()
     @Binding var path: NavigationPath
     @State private var question: String = ""
@@ -41,17 +59,21 @@ struct GameView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 250, height: 300)
-                    .scaleEffect(gameViewModel.animationAmount)
-                    .animation(gameViewModel.isAnimating ?
-                        .easeInOut(duration: 1)
-                        .repeatForever(autoreverses: true) : .none,
-                               value: gameViewModel.animationAmount
+                    .scaleEffect(animationAmount)
+                    .pausableAnimation(
+                        binding: $animationAmount,
+                        targetValue: maxScale,
+                        remainingDuration: remainingDuration,
+                        animation: animation,
+                        paused: $isPaused
                     )
                 
                 Spacer()
                 
                 if !gameViewModel.isGameStarted {
                     ButtonView(action: {
+                        isPaused = false
+                        restartAnimation()
                         gameViewModel.startGame {
                             path.append(GamePath.finalScreen)
                         }
@@ -61,9 +83,15 @@ struct GameView: View {
                     
                 } else {
                     ButtonView(
-						action: { gameViewModel.togglePause {
-							path.append(GamePath.finalScreen)
-						} },
+                        action: {
+                            isPaused.toggle()
+                            gameViewModel.togglePause {
+                                path.append(GamePath.finalScreen)
+                            }
+                            if !isPaused {
+                                restartAnimation() // Перезапуск анимации при продолжении
+                            }
+                        },
                         label: gameViewModel.isAnimating ? "Пауза" : "Продолжить",
                         color: gameViewModel.isAnimating ? .green : .gameViewButton
                     )
@@ -78,22 +106,49 @@ struct GameView: View {
                 }
             }
             .onAppear {
+                animationAmount = minScale
+                withAnimation(animation(duration)) {
+                    animationAmount = maxScale
+                }
                 gameViewModel.playMusic()
                 question = gameViewModel.randomQuestion()
+            }
+            .onChange(of: isPaused) { newValue in
+                if !newValue { // если анимация не на паузе, запустить заново
+                    restartAnimation()
+                }
             }
             .onDisappear()
             .customToolbar(
                 title: "Игра",
-				backButtonAction: {
-					gameViewModel.stopGame {
-						path.removeLast()
-					}
-				},
+                backButtonAction: {
+                    gameViewModel.stopGame {
+                        path.removeLast()
+                    }
+                },
                 isShowingHint: false,
                 hintAction: nil
             )
         }
     }
+    
+    private func restartAnimation() {
+        
+        gameViewModel.isAnimating = true
+        let remainingTime = remainingDuration(animationAmount) // Сохраняем оставшееся время
+        
+        withAnimation(animation(remainingTime)) {
+            animationAmount = (animationAmount == minScale) ? maxScale : minScale
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + remainingTime) {
+            gameViewModel.isAnimating = false
+            if !isPaused { // Только если не на паузе, продолжаем
+                restartAnimation()
+            }
+        }
+    }
+    
 }
 
 extension GameView {
@@ -104,6 +159,6 @@ extension GameView {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-		GameView(path: .constant(NavigationPath()))
+        GameView(path: .constant(NavigationPath()))
     }
 }
