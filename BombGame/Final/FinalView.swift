@@ -34,7 +34,7 @@ struct FinalView: View {
                 //MARK: - Work with task
                 if !settingsVM.gameForTasks { // !!!
                     
-                    Text("Здесь может быть Ваше задание, с ним интереснее!")
+                    Text("Здесь может быть задание проигравшему!")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
                         .frame(width:329, height: 110)
                         .multilineTextAlignment(.center)

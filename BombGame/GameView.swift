@@ -80,6 +80,7 @@ struct GameView: View {
                 AudioManager.shared.playSound(named: backgroundMusic, volume: 0.4)
             }
 			.customToolbar(title: "Игра", backButtonAction: {
+                AudioManager.shared.stopAllSounds()
 				path.removeLast()
 			}, isShowingHint: false, hintAction: nil)
         }
