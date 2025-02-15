@@ -16,12 +16,11 @@ class FinalViewVM: ObservableObject {
     // save in UD user-definedTask and appTask
     
     func uploadTask() {
-        currentTask = tasks.filter{ $0 != currentTask }.randomElement() ?? "Пропускаешь одну игру - у разраба nil :)"
+        currentTask = tasks.filter{ $0 != currentTask }.randomElement() ?? "Пропускаешь одну игру" // у разраба nil :)
         print("uploadNewTask")
     }
     
 	func newGame(navigation: @escaping () -> ()) {
-        // go to new game View
         navigation()
     }
     
