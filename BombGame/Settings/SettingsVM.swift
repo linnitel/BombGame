@@ -13,13 +13,13 @@ class SettingsVM: ObservableObject {
     let bombSounds = ["Часы1", "Часы2", "Часы3"]
     let explosionSounds = ["Взрыв1", "Взрыв2", "Взрыв3"]
     
-    
+    // AppStorage("") test
     @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "Мелодия1")
     @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "Взрыв1")
     @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "Часы1")
     
     
-    @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") { // AppStorage("")
+    @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") {
         didSet {
             UserDefaults.standard.set(vibration, forKey: "vibration")
         }
@@ -30,7 +30,7 @@ class SettingsVM: ObservableObject {
         }
     }
     
-    var gameTime = UserDefaults.standard.value(forKey: "gameTime") ?? 30
+    var gameTime = UserDefaults.standard.value(forKey: "gameTime") ?? 20
     
     //MARK: - Settings func
     func setGameTime(time: Int) {
