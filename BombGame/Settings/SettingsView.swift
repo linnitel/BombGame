@@ -40,12 +40,12 @@ struct SettingsView: View {
                         
                         TimeButtons(textOne: "Короткое", textTwo: "Среднее",
                                     funcOne: { settingsVM.setGameTime(time: 10)},
-                                    funcTwo: { settingsVM.setGameTime(time: 30)})
+                                    funcTwo: { settingsVM.setGameTime(time: 20)})
                         
                         TimeButtons(textOne: "Длинное", textTwo: "Случайное",
-                                    funcOne: { settingsVM.setGameTime(time: 60)},
+                                    funcOne: { settingsVM.setGameTime(time: 45)},
                                     funcTwo: {
-                            settingsVM.setGameTime(time: Int.random(in: 20...120))
+                            settingsVM.setGameTime(time: Int.random(in: 10...45))
                         })
                     }
                 }

@@ -15,8 +15,10 @@ class GameViewModel: ObservableObject {
     @Published var timeRemaining = UserDefaults.standard.integer(forKey: "gameTime")
     @Published var timer: Timer?
     
+    let bombSound: String = UserDefaults.standard.string(forKey: "bombSound") ?? "Часы1"
+    
     func startGame(navigate: @escaping () -> ()) {
-        AudioManager.shared.playSound(named: "Часы", volume: 0.6)
+        AudioManager.shared.playSound(named: bombSound, volume: 0.6)
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
@@ -45,11 +47,11 @@ class GameViewModel: ObservableObject {
             timer?.invalidate()
             timer = nil
             isAnimating = false
-            AudioManager.shared.stopSound(named: "Часы")
+            AudioManager.shared.stopSound(named: bombSound)
         } else {
             isAnimating = true
             animationAmount = 1.5
-            AudioManager.shared.playSound(named: "Часы", volume: 0.8)
+            AudioManager.shared.playSound(named: bombSound, volume: 0.8)
             
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
                 if timeRemaining > 0 {

@@ -14,9 +14,9 @@ class SettingsVM: ObservableObject {
     let explosionSounds = ["Взрыв1", "Взрыв2", "Взрыв3"]
     
     
-    @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "errorM")
-    @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "errorB")
-    @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "errorE")
+    @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "Мелодия1")
+    @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "Взрыв1")
+    @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "Часы1")
     
     
     @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") { // AppStorage("")
