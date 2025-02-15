@@ -75,27 +75,6 @@ struct MainGameView: View {
     }
 }
 
-//struct ButtonView: View {
-//	let action: () -> Void
-//	let label: String
-//
-//	var body: some View {
-//			Button(action: action) {
-//				ZStack {
-//					RoundedRectangle(cornerRadius: 10)
-//						.foregroundStyle(.mainViewButton)
-//						.shadow(radius: 5)
-//					Text(label)
-//						.font(.system(size: 20, weight: .semibold, design: .rounded))
-//						.foregroundColor(Color.appPrimary)
-//				}
-//				.frame(height: 55)
-//				.padding(.horizontal, 20)
-//			}
-//
-//	}
-//}
-
 extension MainGameView {
 	enum Path {
 		case gameStart

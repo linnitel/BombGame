@@ -66,8 +66,9 @@ struct CategoryView: View {
         )
         .navigationDestination(for: CategoryPath.self) { value in
             switch value {
-                case .gameScreen:
-                    GameView(path: $path)
+            case .gameScreen:
+                GameView(path: $path)
+                    .environmentObject(viewModel)
             }
         }
         .sheet(isPresented: $showHint) {
