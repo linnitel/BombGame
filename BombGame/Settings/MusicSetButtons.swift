@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct MusicSetButtons: View {
-    
-    let title: String
 
+    @StateObject var settingsVM = SettingsVM()
     @Binding var sound: String
+    
+    let musicVariant: MusicVariant
+    let title: String
     let sounds: [String]
     
     var body: some View {
@@ -35,6 +37,16 @@ struct MusicSetButtons: View {
                             .opacity(0.5)
                     }
                 }
+                .onChange(of: sound) { newValue in
+                    switch musicVariant {
+                    case .background:
+                        settingsVM.setBackgroundMusic(music: sound)
+                    case .bomb:
+                        settingsVM.setBombSound(sound: sound)
+                    case .explosion:
+                        settingsVM.setExplosionSound(sound: sound)
+                    }
+                }
                 .frame(width: 110)
                 .pickerStyle(.wheel)
                 
@@ -45,6 +57,6 @@ struct MusicSetButtons: View {
     }
 }
 
-#Preview {
-    MusicSetButtons(title: "Фоновая музыка", sound: .constant("Мел 1"), sounds: ["Мелодия 1", "Мелодия 2", "Мелодия 3"])
-}
+//#Preview {
+//    MusicSetButtons(title: "Фоновая музыка", sound: .constant("Мел 1"), sounds: ["Мелодия 1", "Мелодия 2", "Мелодия 3"])
+//}

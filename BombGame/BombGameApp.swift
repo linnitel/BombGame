@@ -11,8 +11,8 @@ import SwiftUI
 struct BombGameApp: App {
     var body: some Scene {
         WindowGroup {
-//            MainGameView()
-            SettingsView()
+            MainGameView()
+                .preferredColorScheme(.light)
         }
     }
 }

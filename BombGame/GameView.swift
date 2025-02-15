@@ -11,6 +11,7 @@ struct GameView: View {
     @StateObject private var gameViewModel = GameViewModel()
     
     @Binding var path: NavigationPath
+    let backgroundMusic = UserDefaults.standard.string(forKey: "backgroundMusic") ?? "Мелодия1"
     
     var body: some View {
         ZStack {
@@ -22,10 +23,6 @@ struct GameView: View {
             .ignoresSafeArea()
             
             VStack {
-                Text("Игра")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .fontWeight(.bold)
-                    .padding(.top, 20)
                 
                 Spacer()
                 
@@ -55,36 +52,20 @@ struct GameView: View {
                 Spacer()
                 
                 if !gameViewModel.isGameStarted {
-                    Button(action: {
-                        gameViewModel.startGame {
-                            path.append(GamePath.finalScreen)
-                        }
-                    }) {
-                        Text("Запустить")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.gameViewButton)
-                            .cornerRadius(12)
-                    }
+					ButtonView(action: {
+						gameViewModel.startGame {
+							path.append(GamePath.finalScreen)
+						}
+					}, label: "Запустить", color: .gameViewButton)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                     
                 } else {
-                    Button(action: {
-                        gameViewModel.togglePause {
-                            path.append(GamePath.finalScreen)
-                        }
-                    }) {
-                        Text(gameViewModel.isAnimating ? "Пауза" : "Продолжить")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(gameViewModel.isAnimating ? .green : .gameViewButton)
-                            .cornerRadius(12)
-                    }
+					ButtonView(action: {
+						gameViewModel.togglePause {
+							path.append(GamePath.finalScreen)
+						}
+					}, label: gameViewModel.isAnimating ? "Пауза" : "Продолжить", color: gameViewModel.isAnimating ? .green : .gameViewButton)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
                 }
@@ -96,9 +77,13 @@ struct GameView: View {
                 }
             }
             .onAppear {
-                AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
+                AudioManager.shared.playSound(named: backgroundMusic, volume: 0.4)
             }
+			.customToolbar(title: "Игра", backButtonAction: {
+				path.removeLast()
+			}, isShowingHint: false, hintAction: nil)
         }
+
     }
 }
 

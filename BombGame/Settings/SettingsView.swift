@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @StateObject private var settingsVM = SettingsVM()
+    @Binding var path: NavigationPath
     
     var body: some View {
         
@@ -60,9 +61,13 @@ struct SettingsView: View {
                         .foregroundStyle(.categoryCellBg)
                     
                     VStack(spacing: 15) {
-                        MusicSetButtons(title: "Фоновая музыка", sound: $settingsVM.backgroundMusic, sounds: settingsVM.backgroundSounds)
-                        MusicSetButtons(title: "Тиканье бамбы", sound: $settingsVM.bombSound, sounds: settingsVM.bombSounds)
-                        MusicSetButtons(title: "Взрыв бомбы", sound: $settingsVM.explosionSound, sounds: settingsVM.explosionSounds)
+                        MusicSetButtons(sound: $settingsVM.backgroundMusic,
+                                        musicVariant: .background,
+                                        title: MusicVariant.background.rawValue,
+                                        sounds: settingsVM.backgroundSounds)
+
+                        MusicSetButtons(sound: $settingsVM.bombSound, musicVariant: .bomb, title: MusicVariant.bomb.rawValue, sounds: settingsVM.bombSounds)
+                        MusicSetButtons(sound: $settingsVM.explosionSound, musicVariant: .explosion, title: MusicVariant.explosion.rawValue, sounds: settingsVM.explosionSounds)
                     }
                 }
                 .overlay {
@@ -88,9 +93,26 @@ struct SettingsView: View {
                 .frame(width: 342, height: 151)
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .customToolbar(title: "Настройки",
+                       backButtonAction: {
+            path.removeLast()
+        },
+                       isShowingHint: false,
+                       hintAction: nil)
+//        .toolbar {
+//            ToolbarItem(placement: .topBarLeading) {
+//                Image(systemName: "chevron.left")
+//                    .resizable()
+//                    .frame(width: 20, height: 20)
+//                    .onTapGesture {
+//                        path.removeLast()
+//                    }
+//            }
+//        }
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(path: .constant(NavigationPath()))
 }

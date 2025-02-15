@@ -13,17 +13,41 @@ class SettingsVM: ObservableObject {
     let bombSounds = ["Часы1", "Часы2", "Часы3"]
     let explosionSounds = ["Взрыв1", "Взрыв2", "Взрыв3"]
     
-    @Published var backgroundMusic = "Мелодия1" { didSet{print(gameTime)}}
-    @Published var bombSound = "Часы1"
-    @Published var explosionSound = "Взрыв1"
-
-    @Published var vibration = true 
-    @Published var gameForTasks = true
     
-    var gameTime = 30   // { didSet{print(gameTime)}} // 10 - 30 - 60 - random(20...120)seconds
+    @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "errorM")
+    @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "errorB")
+    @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "errorE")
     
+    
+    @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") { // AppStorage("")
+        didSet {
+            UserDefaults.standard.set(vibration, forKey: "vibration")
+        }
+    }
+    @Published var gameForTasks = UserDefaults.standard.bool(forKey: "gameForTasks") {
+        didSet {
+            UserDefaults.standard.set(gameForTasks, forKey: "gameForTasks")
+        }
+    }
+    
+    var gameTime = UserDefaults.standard.value(forKey: "gameTime") ?? 30
+    
+    //MARK: - Settings func
     func setGameTime(time: Int) {
         gameTime = time
+        UserDefaults.standard.set(time, forKey: "gameTime")
+    }
+    
+    func setBackgroundMusic(music: String) {
+        UserDefaults.standard.set(music, forKey: "backgroundMusic")
+    }
+    
+    func setBombSound(sound: String) {
+        UserDefaults.standard.set(sound, forKey: "bombSound")
+    }
+    
+    func setExplosionSound(sound: String) {
+        UserDefaults.standard.set(sound, forKey: "explosionSound")
     }
     
     

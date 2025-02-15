@@ -8,18 +8,19 @@ import SwiftUI
 import AVFoundation
 
 class GameViewModel: ObservableObject {
+    
     @Published var isAnimating = true
     @Published var animationAmount = 1.0
     @Published var isGameStarted = false
-    @Published var timeRemaining = 30
+    @Published var timeRemaining = UserDefaults.standard.integer(forKey: "gameTime")
     @Published var timer: Timer?
     
     func startGame(navigate: @escaping () -> ()) {
-        AudioManager.shared.playSound(named: "taymerChasyi", volume: 0.6)
+        AudioManager.shared.playSound(named: "Часы", volume: 0.6)
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
-        timeRemaining = 30
+        timeRemaining = UserDefaults.standard.integer(forKey: "gameTime")
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
             if timeRemaining > 0 {
@@ -44,11 +45,11 @@ class GameViewModel: ObservableObject {
             timer?.invalidate()
             timer = nil
             isAnimating = false
-            AudioManager.shared.stopSound(named: "taymerChasyi")
+            AudioManager.shared.stopSound(named: "Часы")
         } else {
             isAnimating = true
             animationAmount = 1.5
-            AudioManager.shared.playSound(named: "taymerChasyi", volume: 0.8)
+            AudioManager.shared.playSound(named: "Часы", volume: 0.8)
             
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
                 if timeRemaining > 0 {
