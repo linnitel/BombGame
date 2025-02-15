@@ -78,7 +78,7 @@ struct GameView: View {
                 }
             }
             .onAppear {
-                AudioManager.shared.playSound(named: "giggleAllDay", volume: 0.4)
+                gameViewModel.playMusic()
                 question = gameViewModel.randomQuestion()
             }
             .onDisappear()

@@ -37,10 +37,15 @@ struct FinalView: View {
                     .padding(.top,47)
                      
                 VStack(spacing: 16) {
-					ButtonView(action: {finalViewVM.uploadTask()}, label: "Другое задание", color: .gameViewButton)
-					ButtonView(action: {finalViewVM.newGame {
-						path.removeLast()
-					}}, label: "Начать заново", color: .gameViewButton)
+                    ButtonView(
+                        action: { finalViewVM.uploadTask() },
+                        label: "Другое задание",
+                        color: .gameViewButton)
+                    ButtonView(
+                        action: { finalViewVM.newGame { path.removeLast() } },
+                        label: "Начать заново",
+                        color: .gameViewButton
+                    )
                 }
                 .padding(.top,43)
                 .padding(.bottom, 50)
@@ -50,12 +55,12 @@ struct FinalView: View {
         .onAppear {
 			AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
 		}
-		.customToolbar(title: "Конец игры",
-					   backButtonAction: {
-			path.removeLast()
-		},
-					   isShowingHint: false,
-					   hintAction: nil)
+		.customToolbar(
+            title: "Конец игры",
+            backButtonAction: { path = NavigationPath() },
+            isShowingHint: false,
+            hintAction: nil
+        )
 
 	}
 }

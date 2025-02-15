@@ -8,8 +8,8 @@ import SwiftUI
 import AVFoundation
 
 class GameViewModel: ObservableObject {
-    @Published var isAnimating = true
     @Published var animationAmount = 1.0
+    @Published var isAnimating = true
     @Published var isGameStarted = false
     @Published var timeRemaining = 30
     @Published var timer: Timer?
