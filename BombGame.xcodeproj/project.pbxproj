@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B51D3BD92D6141200034B30A /* SwiftUIPausableAnimation in Frameworks */ = {isa = PBXBuildFile; productRef = B51D3BD82D6141200034B30A /* SwiftUIPausableAnimation */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4A726D772D5A6069009266AB /* BombGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BombGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51D3BD92D6141200034B30A /* SwiftUIPausableAnimation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = BombGame;
 			packageProductDependencies = (
+				B51D3BD82D6141200034B30A /* SwiftUIPausableAnimation */,
 			);
 			productName = BombGame;
 			productReference = 4A726D772D5A6069009266AB /* BombGame.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 4A726D6E2D5A6069009266AB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B51D3BD72D6141200034B30A /* XCRemoteSwiftPackageReference "swiftui-pausable-animation" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4A726D782D5A6069009266AB /* Products */;
 			projectDirPath = "";
@@ -332,6 +341,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B51D3BD72D6141200034B30A /* XCRemoteSwiftPackageReference "swiftui-pausable-animation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-pausable-animation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B51D3BD82D6141200034B30A /* SwiftUIPausableAnimation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B51D3BD72D6141200034B30A /* XCRemoteSwiftPackageReference "swiftui-pausable-animation" */;
+			productName = SwiftUIPausableAnimation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A726D6F2D5A6069009266AB /* Project object */;
 }
