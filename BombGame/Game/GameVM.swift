@@ -13,8 +13,8 @@ class GameViewModel: ObservableObject {
     @Published var isGameStarted = false
     @Published var timeRemaining = 30
     @Published var timer: Timer?
-    @Published var timerSoundSetting: String = "taymerChasyi"
-    @Published var gameMusic: String = "giggleAllDay"
+    @Published var timerSoundSetting: String = "timer1"
+    @Published var gameMusic: String = "music1"
     @Published var timerSetting: Int = 30
     @Published var questions: [Question] = Question.questions
     

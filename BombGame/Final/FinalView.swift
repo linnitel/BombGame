@@ -53,7 +53,7 @@ struct FinalView: View {
         }
         .onAppear(perform: finalViewVM.uploadTask)
         .onAppear {
-			AudioManager.shared.playSound(named: "vzryivBombyiOskolki", volume: 0.7, loops: 0)
+            finalViewVM.boom()
 		}
 		.customToolbar(
             title: "Конец игры",

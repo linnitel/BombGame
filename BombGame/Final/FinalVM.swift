@@ -26,5 +26,9 @@ class FinalViewVM: ObservableObject {
         navigation()
     }
     
+    func boom() {
+        AudioManager.shared.playSound(named: "boom1", volume: 0.7, loops: 0)
+    }
+    
     
 }
