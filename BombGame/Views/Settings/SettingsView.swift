@@ -37,7 +37,7 @@ struct SettingsView: View {
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .padding(.horizontal,18)
                             .padding(.top, 20)
-                            .offset(x: -87) //hardcode
+                            .offset(x: -87)
                         
                         TimeButtons(textOne: "Короткое", textTwo: "Среднее",
                                     funcOne: { settingsVM.setGameTime(time: 10)},

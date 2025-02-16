@@ -9,14 +9,14 @@ import SwiftUI
 
 class SettingsVM: ObservableObject {
     
-    let backgroundSounds = ["Мелодия1", "Мелодия2", "Мелодия3"]
-    let bombSounds = ["Часы1", "Часы2", "Часы3"]
-    let explosionSounds = ["Взрыв1", "Взрыв2", "Взрыв3"]
+    let backgroundSounds = ["music1", "music2", "music3"]
+    let bombSounds = ["timer1", "timer2", "timer3"]
+    let explosionSounds = ["boom1", "boom2", "boom3"]
     
     // AppStorage("") test
-    @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "Мелодия1")
-    @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "Взрыв1")
-    @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "Часы1")
+    @Published var backgroundMusic: String = (UserDefaults.standard.string(forKey: "backgroundMusic") ?? "music1")
+    @Published var bombSound: String = (UserDefaults.standard.string(forKey: "bombSound") ?? "boom1")
+    @Published var explosionSound: String = (UserDefaults.standard.string(forKey: "explosionSound") ?? "timer1")
     
     
     @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") {
