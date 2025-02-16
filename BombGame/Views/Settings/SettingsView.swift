@@ -58,7 +58,7 @@ struct SettingsView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(style: .init(lineWidth: 1))
                     }
-                    .frame(width: .infinity, height: 183)
+                    .frame(height: 183)
                     
                     // MUSIC
                     ZStack {
@@ -92,7 +92,7 @@ struct SettingsView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(style: .init(lineWidth: 1))
                     }
-                    .frame(width: .infinity, height: 235)
+                    .frame(height: 235)
                     
                     // SOME FUNC
                     ZStack {
@@ -108,7 +108,7 @@ struct SettingsView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(style: .init(lineWidth: 1))
                     }
-                    .frame(width: .infinity, height: 151)
+                    .frame(height: 151)
                 }
                 .padding()
             }
