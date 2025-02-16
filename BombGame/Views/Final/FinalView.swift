@@ -25,8 +25,9 @@ struct FinalView: View {
             VStack {
                 Image(.finalExplosionView)
                     .resizable()
-                    .frame(width: 249, height: 300)
-                    .padding(.top, 65)
+                    .scaledToFit()
+                    .frame(maxWidth: 249)
+                    .padding()
                 
                 if SettingsManager.shared.tasks {
                     Text( finalViewVM.currentTask?.title ?? "Пропускаешь одну игру - у разраба nil :)" )
@@ -34,8 +35,7 @@ struct FinalView: View {
                         .frame(width:329, height: 110)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.appPrimary)
-                        .padding(.horizontal, 22)
-                        .padding(.top,47)
+                        .padding(.bottom)
                 }
                      
                 VStack(spacing: 16) {
@@ -53,8 +53,6 @@ struct FinalView: View {
                         color: .gameViewButton
                     )
                 }
-                .padding(.top,43)
-                .padding(.bottom, 50)
             }
         }
         .onAppear(perform: finalViewVM.uploadTask)
@@ -63,7 +61,7 @@ struct FinalView: View {
 		}
 		.customToolbar(
             title: "Конец игры",
-            backButtonAction: { path = NavigationPath() },
+			backButtonAction: { path.removeLast() },
             isShowingHint: false,
             hintAction: nil
         )
