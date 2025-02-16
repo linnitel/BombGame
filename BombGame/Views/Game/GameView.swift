@@ -78,8 +78,8 @@ struct GameView: View {
                 }
             }
             .onAppear {
-                gameViewModel.playMusic()
                 question = gameViewModel.randomQuestion()
+                if !gameViewModel.isMute { gameViewModel.playMusic() }
             }
             .onDisappear()
             .customToolbar(
@@ -89,8 +89,9 @@ struct GameView: View {
 						path.removeLast()
 					}
 				},
-                isShowingHint: false,
-                hintAction: nil
+                isShowingHint: true,
+                hintAction: gameViewModel.musicMuteToggle,
+                hintImage: gameViewModel.isMute ? "MusicOff" : "MusicOn"
             )
         }
     }

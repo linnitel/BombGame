@@ -19,6 +19,7 @@ class SettingsManager {
     var gameMusic: String = "music1"
     var timerSound: String = "timer1"
     var boomSound: String = "boom1"
+    var isMuted: Bool = false
     
     // Duratrion
     var timerDuration: Int = 30
@@ -57,6 +58,10 @@ class SettingsManager {
     
     func updateBoomSound(_ sound: String) {
         boomSound = sound
+    }
+    
+    func musicMuteToggle () {
+        isMuted.toggle()
     }
     
     func updateTimerDuration(_ duration: Int) {

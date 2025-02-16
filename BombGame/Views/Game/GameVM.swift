@@ -9,9 +9,10 @@ import AVFoundation
 
 class GameViewModel: ObservableObject {
     @Published var animationAmount = 1.0
-    @Published var isAnimating = true
-    @Published var isGameStarted = false
-    @Published var timeRemaining = 30
+    @Published var isAnimating: Bool = true
+    @Published var isGameStarted: Bool = false
+    @Published var isMute: Bool = SettingsManager.shared.isMuted
+    @Published var timeRemaining: Int = 30
     @Published var timer: Timer?
     @Published var timerSound: String = SettingsManager.shared.timerSound
     @Published var gameMusic: String = SettingsManager.shared.gameMusic
@@ -20,6 +21,10 @@ class GameViewModel: ObservableObject {
     
     func playMusic() {
         AudioManager.shared.playSound(named: gameMusic, volume: 0.4)
+    }
+    
+    func stopMusic() {
+        AudioManager.shared.stopSound(named: gameMusic)
     }
     
     func randomQuestion() -> String {
@@ -32,6 +37,7 @@ class GameViewModel: ObservableObject {
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
+
         AudioManager.shared.playSound(named: timerSound, volume: 0.8)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
@@ -79,6 +85,16 @@ class GameViewModel: ObservableObject {
                     self.stopGame(navigate: navigate)
                 }
             }
+        }
+    }
+    
+    func musicMuteToggle () {
+        isMute.toggle()
+        SettingsManager.shared.musicMuteToggle()
+        if isMute {
+            stopMusic()
+        } else {
+            playMusic()
         }
     }
     
