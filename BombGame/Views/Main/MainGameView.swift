@@ -29,7 +29,7 @@ struct MainGameView: View {
 							.font(.system(size: 28, weight: .bold, design: .rounded))
 							.foregroundColor(Color.appPrimary)
 						Text("БОМБА")
-							.font(.system(size: 48, weight: .bold, design: .rounded))
+                            .font(.system(size: 48, weight: .black, design: .rounded))
 							.foregroundColor(Color.appPrimary)
 						Image("BombRootView")
 							.resizable()
