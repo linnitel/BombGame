@@ -12,7 +12,9 @@ class SettingsManager {
     // MARK: - Singlton init
     static let shared = SettingsManager()
     
-    private init() {}
+    private init() {
+        loadSettings()
+    }
     
     // MARK: - Properies
     // Audio
@@ -28,12 +30,12 @@ class SettingsManager {
     var selectedQuestions: [Question] = Question.questions
     
     // Vibratin
-    var vibration: Bool = true
+    var isVibration: Bool = true
     
     // Quests
-    var tasks: Bool = true
+    var isTasks: Bool = true
     
-    // MARK: - Methods
+    // MARK: - Public Methods
     func updateSelectedQuestions(_ questions: [Question], questionToRemove: Question? = nil) {
         var updatedQuestions = questions
         
@@ -66,5 +68,24 @@ class SettingsManager {
     
     func updateTimerDuration(_ duration: Int) {
         timerDuration = duration
+    }
+    
+    func updateVibrationToggle (_ vibration: Bool) {
+        isVibration = vibration
+    }
+    
+    func updateTasksToglle (_ tasks: Bool ) {
+        isTasks = tasks
+    }
+    
+    // MARK: - Private Methods
+    private func loadSettings() {
+        // Загружаем значения из UserDefaults
+        isVibration = UserDefaults.standard.value(forKey: "vibration") as? Bool ?? true
+        isTasks = UserDefaults.standard.value(forKey: "gameForTasks") as? Bool ?? true
+        timerDuration = UserDefaults.standard.value(forKey: "gameTime") as? Int ?? 20
+        gameMusic = UserDefaults.standard.value(forKey: "backgroundMusic") as? String ?? "music1"
+        timerSound = UserDefaults.standard.value(forKey: "bombSound") as? String ?? "timer1"
+        boomSound = UserDefaults.standard.value(forKey: "explosionSound") as? String ?? "boom1"
     }
 }

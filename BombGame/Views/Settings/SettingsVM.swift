@@ -21,11 +21,13 @@ class SettingsVM: ObservableObject {
     
     @Published var vibration = UserDefaults.standard.bool(forKey: "vibration") {
         didSet {
+            SettingsManager.shared.updateVibrationToggle(vibration)
             UserDefaults.standard.set(vibration, forKey: "vibration")
         }
     }
     @Published var gameForTasks = UserDefaults.standard.bool(forKey: "gameForTasks") {
         didSet {
+            SettingsManager.shared.updateTasksToglle(gameForTasks)
             UserDefaults.standard.set(gameForTasks, forKey: "gameForTasks")
         }
     }
@@ -35,18 +37,22 @@ class SettingsVM: ObservableObject {
     //MARK: - Settings func
     func setGameTime(time: Int) {
         gameTime = time
+        SettingsManager.shared.updateTimerDuration(time)
         UserDefaults.standard.set(time, forKey: "gameTime")
     }
     
     func setBackgroundMusic(music: String) {
+        SettingsManager.shared.updateGameMusic(music)
         UserDefaults.standard.set(music, forKey: "backgroundMusic")
     }
     
     func setBombSound(sound: String) {
+        SettingsManager.shared.updateTimerSound(sound)
         UserDefaults.standard.set(sound, forKey: "bombSound")
     }
     
     func setExplosionSound(sound: String) {
+        SettingsManager.shared.updateBoomSound(sound)
         UserDefaults.standard.set(sound, forKey: "explosionSound")
     }
     

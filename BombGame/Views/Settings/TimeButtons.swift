@@ -16,11 +16,11 @@ struct TimeButtons: View {
     let funcTwo: () -> Void
     
     var body: some View {
-        HStack(spacing: 44) {
+        HStack(spacing: 20) {
             Button {
                 if SettingsVM().vibration {
                     let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                        impactHeavy.impactOccurred()
+                    impactHeavy.impactOccurred()
                     print("vibro time")
                 }
                 funcOne()
@@ -28,7 +28,7 @@ struct TimeButtons: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
                         .foregroundStyle(.appPrimary)
-                        .frame(width: 134, height: 40)
+                        .frame(height: 40)
                     Text(textOne)
                         .font(.system(size: 16, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)
@@ -38,7 +38,7 @@ struct TimeButtons: View {
             Button{
                 if SettingsVM().vibration {
                     let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                        impactHeavy.impactOccurred()
+                    impactHeavy.impactOccurred()
                     print("vibro time")
                 }
                 
@@ -46,7 +46,8 @@ struct TimeButtons: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .frame(width: 134, height: 40)
+                        .foregroundStyle(.appPrimary)
+                        .frame(height: 40)
                     Text(textTwo)
                         .font(.system(size: 16, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)

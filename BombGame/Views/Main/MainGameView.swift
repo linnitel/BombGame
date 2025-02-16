@@ -51,6 +51,12 @@ struct MainGameView: View {
 			}
 
 			.toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Image("PreferencesIcon").onTapGesture {
+                        path.append(Path.settings)
+                    }
+                    .padding(.trailing)
+                }
 				ToolbarItem(placement: .navigationBarTrailing) {
 					Image("RulesIcon").onTapGesture {
 						showRules = true
@@ -60,18 +66,19 @@ struct MainGameView: View {
 			}
 			.sheet(isPresented: $showRules) {
 				RulesView()
-					.presentationDetents([.fraction(0.8)])
-			}
-			.navigationDestination(for: Path.self) { value in
-				switch value {
-					case .gameStart:
-						GameView(path: $path)
-					case .categorySelection:
-						CategoryView(path: $path)
-				}
-			}
-		}
-   
+                    .presentationDetents([.fraction(0.8)])
+            }
+            .navigationDestination(for: Path.self) { value in
+                switch value {
+                case .gameStart:
+                    GameView(path: $path)
+                case .categorySelection:
+                    CategoryView(path: $path)
+                case .settings:
+                    SettingsView(path: $path)
+                }
+            }
+        }
     }
 }
 
@@ -79,6 +86,7 @@ extension MainGameView {
 	enum Path {
 		case gameStart
 		case categorySelection
+        case settings
 	}
 }
 

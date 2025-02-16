@@ -43,7 +43,7 @@ class GameViewModel: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.timeRemaining > 0 {
-                if SettingsManager.shared.vibration {
+                if SettingsManager.shared.isVibration {
                     HapticManager.shared.playTick()
                 }
                 self.timeRemaining -= 1
