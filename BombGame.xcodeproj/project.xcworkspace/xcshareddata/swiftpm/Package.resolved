@@ -1,0 +1,15 @@
+{
+  "originHash" : "7214fe3f4a67d1a0d650783a7133150f73096023a94f49f2f131599d83f52260",
+  "pins" : [
+    {
+      "identity" : "swiftui-pausable-animation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-pausable-animation.git",
+      "state" : {
+        "revision" : "b6bf4fe47299f8c8d4be7c99bdba962d65ee200e",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
