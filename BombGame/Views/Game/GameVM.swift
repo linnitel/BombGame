@@ -18,6 +18,7 @@ class GameViewModel: ObservableObject {
     @Published var gameMusic: String = SettingsManager.shared.gameMusic
     @Published var timerSetting: Int = SettingsManager.shared.timerDuration
     @Published var questions: [Question] = SettingsManager.shared.selectedQuestions
+
     
     func playMusic() {
         AudioManager.shared.playSound(named: gameMusic, volume: 0.4)

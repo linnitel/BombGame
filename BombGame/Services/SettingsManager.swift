@@ -7,33 +7,22 @@
 
 import Foundation
 
-class SettingsManager {
-    
-    // MARK: - Singlton init
+class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
+    
+    @Published var timerDuration: Int = 30
+    @Published var isMuted: Bool = false
+    @Published var isTasks: Bool = true
+    @Published var isVibration: Bool = true
+    @Published var gameMusic: String = "music1"
+    @Published var timerSound: String = "timer1"
+    @Published var boomSound: String = "boom1"
+    @Published var selectedQuestions: [Question] = []
     
     private init() {
         loadSettings()
     }
-    
-    // MARK: - Properies
-    // Audio
-    var gameMusic: String = "music1"
-    var timerSound: String = "timer1"
-    var boomSound: String = "boom1"
-    var isMuted: Bool = false
-    
-    // Duratrion
-    var timerDuration: Int = 30
-    
-    //Questions
-    var selectedQuestions: [Question] = Question.questions
-    
-    // Vibratin
-    var isVibration: Bool = true
-    
-    // Quests
-    var isTasks: Bool = true
+
     
     // MARK: - Public Methods
     func updateSelectedQuestions(_ questions: [Question], questionToRemove: Question? = nil) {
