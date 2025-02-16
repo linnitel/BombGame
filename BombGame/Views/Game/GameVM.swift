@@ -12,12 +12,13 @@ class GameViewModel: ObservableObject {
     @Published var isAnimating: Bool = true
     @Published var isGameStarted: Bool = false
     @Published var isMute: Bool = SettingsManager.shared.isMuted
-    @Published var timeRemaining: Int = 30
+    @Published var timeRemaining: Int = SettingsManager.shared.timerDuration
     @Published var timer: Timer?
     @Published var timerSound: String = SettingsManager.shared.timerSound
     @Published var gameMusic: String = SettingsManager.shared.gameMusic
     @Published var timerSetting: Int = SettingsManager.shared.timerDuration
     @Published var questions: [Question] = SettingsManager.shared.selectedQuestions
+
     
     func playMusic() {
         AudioManager.shared.playSound(named: gameMusic, volume: 0.4)
@@ -43,7 +44,7 @@ class GameViewModel: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.timeRemaining > 0 {
-                if SettingsManager.shared.vibration {
+                if SettingsManager.shared.isVibration {
                     HapticManager.shared.playTick()
                 }
                 self.timeRemaining -= 1

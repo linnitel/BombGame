@@ -7,33 +7,24 @@
 
 import Foundation
 
-class SettingsManager {
-    
-    // MARK: - Singlton init
+class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
     
-    private init() {}
+    @Published var timerDuration: Int = 20
+    @Published var isMuted: Bool = false
+    @Published var isTasks: Bool = true
+    @Published var isVibration: Bool = true
+    @Published var gameMusic: String = "music1"
+    @Published var timerSound: String = "timer1"
+    @Published var boomSound: String = "boom1"
+    @Published var selectedQuestions: [Question] = []
     
-    // MARK: - Properies
-    // Audio
-    var gameMusic: String = "music1"
-    var timerSound: String = "timer1"
-    var boomSound: String = "boom1"
-    var isMuted: Bool = false
+    private init() {
+        loadSettings()
+    }
+
     
-    // Duratrion
-    var timerDuration: Int = 30
-    
-    //Questions
-    var selectedQuestions: [Question] = Question.questions
-    
-    // Vibratin
-    var vibration: Bool = true
-    
-    // Quests
-    var tasks: Bool = true
-    
-    // MARK: - Methods
+    // MARK: - Public Methods
     func updateSelectedQuestions(_ questions: [Question], questionToRemove: Question? = nil) {
         var updatedQuestions = questions
         
@@ -66,5 +57,24 @@ class SettingsManager {
     
     func updateTimerDuration(_ duration: Int) {
         timerDuration = duration
+    }
+    
+    func updateVibrationToggle (_ vibration: Bool) {
+        isVibration = vibration
+    }
+    
+    func updateTasksToglle (_ tasks: Bool ) {
+        isTasks = tasks
+    }
+    
+    // MARK: - Private Methods
+    private func loadSettings() {
+        // Загружаем значения из UserDefaults
+        isVibration = UserDefaults.standard.value(forKey: "vibration") as? Bool ?? true
+        isTasks = UserDefaults.standard.value(forKey: "gameForTasks") as? Bool ?? true
+        timerDuration = UserDefaults.standard.value(forKey: "gameTime") as? Int ?? 20
+        gameMusic = UserDefaults.standard.value(forKey: "backgroundMusic") as? String ?? "music1"
+        timerSound = UserDefaults.standard.value(forKey: "bombSound") as? String ?? "timer1"
+        boomSound = UserDefaults.standard.value(forKey: "explosionSound") as? String ?? "boom1"
     }
 }

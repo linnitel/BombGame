@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+//
+//  MusicSetButtons.swift
+//  BombGame
+//
+//  Created by Marat Fakhrizhanov on 14.02.2025.
+//
+
+import SwiftUI
+
 struct MusicSetButtons: View {
 
     let player = AudioManager.shared
@@ -25,46 +34,52 @@ struct MusicSetButtons: View {
             
             HStack {
                 Text(title)
-                        .foregroundStyle(.white)
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
                     
                 Spacer()
                 
-                Picker("music", selection: $sound) {
-                    ForEach(sounds, id:\.self) { sound in
-                        Text(sound)
-                            .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundStyle(.white)
-                            .opacity(0.5)
+                Menu {
+                    ForEach(sounds, id: \.self) { sound in
+                        Button(action: {
+                            self.sound = sound
+                            handleSoundChange(newValue: sound)
+                        }) {
+                            Text(sound)
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                        }
                     }
+                } label: {
+                    Text(sound)
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
                 }
-                .onChange(of: sound) { newValue in
-                    
-                    if SettingsVM().vibration {
-                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                            impactHeavy.impactOccurred()
-                        print("vibro music")
-                    }
-                    
-                    player.stopAllSounds()
-                    player.playSound(named: sound, volume: 0.5, loops: 1)
-                    
-                    switch musicVariant {
-                    case .background:
-                        settingsVM.setBackgroundMusic(music: sound)
-                    case .bomb:
-                        settingsVM.setBombSound(sound: sound)
-                    case .explosion:
-                        settingsVM.setExplosionSound(sound: sound)
-                    }
-                }
-                .frame(width: 110)
-                .pickerStyle(.wheel)
-                
             }
             .padding(.horizontal, 20)
         }
-        .frame(width: 308, height: 49)
+        .frame(height: 49)
+        .padding(.horizontal, 20)
+    }
+    
+    private func handleSoundChange(newValue: String) {
+        if SettingsVM().vibration {
+            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+            impactHeavy.impactOccurred()
+            print("vibro music")
+        }
+        
+        player.stopAllSounds()
+        player.playSound(named: newValue, volume: 0.5, loops: 1)
+        
+        switch musicVariant {
+        case .background:
+            settingsVM.setBackgroundMusic(music: newValue)
+        case .bomb:
+            settingsVM.setBombSound(sound: newValue)
+        case .explosion:
+            settingsVM.setExplosionSound(sound: newValue)
+        }
     }
 }
 

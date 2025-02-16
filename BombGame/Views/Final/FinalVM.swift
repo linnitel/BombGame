@@ -25,7 +25,7 @@ class FinalViewVM: ObservableObject {
     
     func boom() {
         AudioManager.shared.playSound(named: "boom1", volume: 0.7, loops: 0)
-        if SettingsManager.shared.vibration {
+        if SettingsManager.shared.isVibration {
             HapticManager.shared.playExplosion()
         }
     }

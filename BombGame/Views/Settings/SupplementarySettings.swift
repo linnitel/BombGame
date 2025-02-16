@@ -38,8 +38,8 @@ struct SupplementarySettings: View {
             }
             .padding(.horizontal,20)
         }
-        .frame(width: 308, height: 49)
-        .padding(.horizontal,15)
+        .frame(height: 49)
+        .padding(.horizontal,20)
         
     }
 }

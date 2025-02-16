@@ -29,7 +29,7 @@ struct FinalView: View {
                     .frame(maxWidth: 249)
                     .padding()
                 
-                if SettingsManager.shared.tasks {
+                if SettingsManager.shared.isTasks {
                     Text( finalViewVM.currentTask?.title ?? "Пропускаешь одну игру - у разраба nil :)" )
                         .font(.system(size: 28, weight: .bold, design: .rounded))
                         .frame(width:329, height: 110)
@@ -40,7 +40,7 @@ struct FinalView: View {
                      
                 VStack(spacing: 16) {
                     
-                    if SettingsManager.shared.tasks {
+                    if SettingsManager.shared.isTasks {
                         ButtonView(
                             action: { finalViewVM.uploadTask() },
                             label: "Другое задание",
