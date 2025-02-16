@@ -12,7 +12,7 @@ class GameViewModel: ObservableObject {
     @Published var isAnimating: Bool = true
     @Published var isGameStarted: Bool = false
     @Published var isMute: Bool = SettingsManager.shared.isMuted
-    @Published var timeRemaining: Int = 30
+    @Published var timeRemaining: Int = SettingsManager.shared.timerDuration
     @Published var timer: Timer?
     @Published var timerSound: String = SettingsManager.shared.timerSound
     @Published var gameMusic: String = SettingsManager.shared.gameMusic
