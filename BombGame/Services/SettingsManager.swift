@@ -10,7 +10,7 @@ import Foundation
 class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
     
-    @Published var timerDuration: Int = 30
+    @Published var timerDuration: Int = 20
     @Published var isMuted: Bool = false
     @Published var isTasks: Bool = true
     @Published var isVibration: Bool = true

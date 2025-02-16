@@ -55,18 +55,25 @@ struct GameView: View {
                 
                 Spacer()
                 
-                Image("BombGameView")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 300)
-                    .scaleEffect(animationAmount)
-                    .pausableAnimation(
-                        binding: $animationAmount,
-                        targetValue: maxScale,
-                        remainingDuration: remainingDuration,
-                        animation: animation,
-                        paused: $isPaused
-                    )
+                if gameViewModel.isAnimating {
+                    Image("BombGameView")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250, height: 300)
+                        .scaleEffect(animationAmount)
+                        .pausableAnimation(
+                            binding: $animationAmount,
+                            targetValue: maxScale,
+                            remainingDuration: remainingDuration,
+                            animation: animation,
+                            paused: $isPaused
+                        )
+                } else {
+                    Image("BombGameView")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250, height: 300)
+                }
                 
                 Spacer()
                 
