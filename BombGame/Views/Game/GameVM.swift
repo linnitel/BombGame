@@ -24,7 +24,7 @@ class GameViewModel: ObservableObject {
     
     func randomQuestion() -> String {
         guard let question = questions.randomElement() else { return "Назовите зимний вид спорта" }
-        SettingsManager.shared.updateSelectedCategories(questions, questionToRemove: question)
+        SettingsManager.shared.updateSelectedQuestions(questions, questionToRemove: question)
         return question.question
     }
     

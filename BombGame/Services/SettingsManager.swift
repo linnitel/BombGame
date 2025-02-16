@@ -33,7 +33,7 @@ class SettingsManager {
     var tasks: Bool = true
     
     // MARK: - Methods
-    func updateSelectedCategories(_ questions: [Question], questionToRemove: Question? = nil) {
+    func updateSelectedQuestions(_ questions: [Question], questionToRemove: Question? = nil) {
         var updatedQuestions = questions
         
         if let questionToRemove = questionToRemove {
