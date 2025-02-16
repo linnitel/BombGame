@@ -13,10 +13,10 @@ class GameViewModel: ObservableObject {
     @Published var isGameStarted = false
     @Published var timeRemaining = 30
     @Published var timer: Timer?
-    @Published var timerSoundSetting: String = "timer1"
-    @Published var gameMusic: String = "music1"
-    @Published var timerSetting: Int = 30
-    @Published var questions: [Question] = Question.questions
+    @Published var timerSound: String = SettingsManager.shared.timerSound
+    @Published var gameMusic: String = SettingsManager.shared.gameMusic
+    @Published var timerSetting: Int = SettingsManager.shared.timerDuration
+    @Published var questions: [Question] = SettingsManager.shared.selectedQuestions
     
     func playMusic() {
         AudioManager.shared.playSound(named: gameMusic, volume: 0.4)
@@ -24,6 +24,7 @@ class GameViewModel: ObservableObject {
     
     func randomQuestion() -> String {
         guard let question = questions.randomElement() else { return "Назовите зимний вид спорта" }
+        SettingsManager.shared.updateSelectedCategories(questions, questionToRemove: question)
         return question.question
     }
     
@@ -31,11 +32,14 @@ class GameViewModel: ObservableObject {
         isGameStarted = true
         isAnimating = true
         animationAmount = 1.5
-        AudioManager.shared.playSound(named: timerSoundSetting, volume: 0.8)
+        AudioManager.shared.playSound(named: timerSound, volume: 0.8)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.timeRemaining > 0 {
+                if SettingsManager.shared.vibration {
+                    HapticManager.shared.playTick()
+                }
                 self.timeRemaining -= 1
             } else {
                 self.stopGame(navigate: navigate)
@@ -60,15 +64,16 @@ class GameViewModel: ObservableObject {
             timer = nil
             isAnimating = false
             animationAmount = 1.0
-            AudioManager.shared.stopSound(named: timerSoundSetting)
+            AudioManager.shared.stopSound(named: timerSound)
         } else {
             isAnimating = true
             animationAmount = 1.5
-            AudioManager.shared.playSound(named: timerSoundSetting, volume: 0.8)
+            AudioManager.shared.playSound(named: timerSound, volume: 0.8)
             
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
                 if self.timeRemaining > 0 {
+                    HapticManager.shared.playTick()
                     self.timeRemaining -= 1
                 } else {
                     self.stopGame(navigate: navigate)

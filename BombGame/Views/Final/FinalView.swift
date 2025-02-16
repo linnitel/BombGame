@@ -28,19 +28,25 @@ struct FinalView: View {
                     .frame(width: 249, height: 300)
                     .padding(.top, 65)
                 
-                Text( finalViewVM.currentTask )
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .frame(width:329, height: 110)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.appPrimary)
-                    .padding(.horizontal, 22)
-                    .padding(.top,47)
+                if SettingsManager.shared.tasks {
+                    Text( finalViewVM.currentTask?.title ?? "Пропускаешь одну игру - у разраба nil :)" )
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .frame(width:329, height: 110)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.appPrimary)
+                        .padding(.horizontal, 22)
+                        .padding(.top,47)
+                }
                      
                 VStack(spacing: 16) {
-                    ButtonView(
-                        action: { finalViewVM.uploadTask() },
-                        label: "Другое задание",
-                        color: .gameViewButton)
+                    
+                    if SettingsManager.shared.tasks {
+                        ButtonView(
+                            action: { finalViewVM.uploadTask() },
+                            label: "Другое задание",
+                            color: .gameViewButton)
+                    }
+                    
                     ButtonView(
                         action: { finalViewVM.newGame { path.removeLast() } },
                         label: "Начать заново",

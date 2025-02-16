@@ -39,6 +39,7 @@ struct CategoryView: View {
                         .onTapGesture {
                             category.isSelected.toggle()
                             viewModel.addQuestionsToGame()
+                            
                         }
                     }
                    
