@@ -110,8 +110,8 @@ struct GameView: View {
                 withAnimation(animation(duration)) {
                     animationAmount = maxScale
                 }
-                gameViewModel.playMusic()
                 question = gameViewModel.randomQuestion()
+                if !gameViewModel.isMute { gameViewModel.playMusic() }
             }
             .onChange(of: isPaused) { newValue in
                 if !newValue { // если анимация не на паузе, запустить заново
@@ -121,13 +121,14 @@ struct GameView: View {
             .onDisappear()
             .customToolbar(
                 title: "Игра",
-                backButtonAction: {
-                    gameViewModel.stopGame {
-                        path.removeLast()
-                    }
-                },
-                isShowingHint: false,
-                hintAction: nil
+				backButtonAction: {
+					gameViewModel.stopGame {
+						path.removeLast()
+					}
+				},
+                isShowingHint: true,
+                hintAction: gameViewModel.musicMuteToggle,
+                hintImage: gameViewModel.isMute ? "MusicOff" : "MusicOn"
             )
         }
     }

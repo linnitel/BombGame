@@ -16,7 +16,8 @@ enum Category {
     case nature
 }
 
-struct Question {
+struct Question: Identifiable {
+    let id: UUID = UUID()
     let question: String
     let category: Category
     
